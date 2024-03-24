@@ -1,4 +1,4 @@
-package com.imb4.gc.p3.gr1.grupo1;
+package com.imb4.gc.p3.gr1;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
