@@ -1,6 +1,5 @@
 package com.imb4.gc.p3.gr1.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -13,34 +12,30 @@ public class PaymentMethod {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_payment_method")
-	private Long id_payment_method;
+	private Long id;
 	
-	@Column(name="type")
 	private String type;
 	
-	@Column(name="data")
 	private String data;
 	
-	@Column(name="total")
 	private Float total;
 	
 	public PaymentMethod(){}
 	
-	public PaymentMethod(Long id_payment_method, String type, String data, Float total) {
+	public PaymentMethod(Long id, String type, String data, Float total) {
 		super();
-		this.id_payment_method = id_payment_method;
+		this.id = id;
 		this.type = type;
 		this.data = data;
 		this.total = total;
 	}
 
-	public Long getId_payment_method() {
-		return id_payment_method;
+	public Long getId() {
+		return id;
 	}
 
-	public void setId_payment_method(Long id_payment_method) {
-		this.id_payment_method = id_payment_method;
+	public void setId(Long id) {
+		this.id = id;
 	}
 
 	public String getType() {
