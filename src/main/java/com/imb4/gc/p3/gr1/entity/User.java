@@ -1,51 +1,33 @@
 package com.imb4.gc.p3.gr1.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name="user")
 public class User {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_user")
-	private Long id_user;
+	private Long id;
     
-	@Column(name="name")
 	private String name;
-    
-	@Column(name="lastname")
 	private String lastname;
-    
-	@Column(name="email")
 	private String email;
-    
-	@Column(name="password")
-	private String password;
-    
-	@Column(name="phone")
+	private String password;  
 	private String phone;
-
 	
-	
-	@Column(name="address")
     private String address;
-    
-	@Column(name="role")
     private String role;
 	
 
     //Constructor
-	public User(String role, String email, Long idUser, String password, String address, String name, String phone,
+	public User(String role, String email, Long id, String password, String address, String name, String phone,
 			String lastname) {
 		super();
 		this.role = role;
 		this.email = email;
-		this.id_user = idUser;
+		this.id = id;
 		this.password = password;
 		this.address = address;
 		this.name = name;
@@ -54,11 +36,11 @@ public class User {
 	}
 	
 	//Setters-Getters
-	public Long getIdUser() {
-		return id_user;
+	public Long getId() {
+		return id;
 	}
-	public void setIdUser(Long idUser) {
-		this.id_user = idUser;
+	public void setId(Long id) {
+		this.id = id;
 	}
 	
 	public String getName() {
