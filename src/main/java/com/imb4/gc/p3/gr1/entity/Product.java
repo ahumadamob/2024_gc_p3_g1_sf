@@ -1,43 +1,26 @@
 package com.imb4.gc.p3.gr1.entity;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
 
 @Entity
-@Table(name="product")
 public class Product {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_producto")
-	private Long id_product;
-	
-	@Column(name="name")
+	private Long id;
 	private String name;
-	
-	@Column(name="description")
 	private String description;
-	
-	@Column(name="price")
 	private Float price;
-	
-	@Column(name="stock")
 	private int stock;
-	
-	@Column(name="images")
 	private String images;
-	
-	@Column(name="category")
 	private String category;
 	
 	public Product() {}
-	public Product(Long id_product, String name, String description, Float price, int stock, String images,
-			String category) {
+	public Product(Long id, String name, String description, Float price, int stock, String images, String category) {
 		super();
-		this.id_product = id_product;
+		this.id = id;
 		this.name = name;
 		this.description = description;
 		this.price = price;
@@ -46,11 +29,11 @@ public class Product {
 		this.category = category;
 	}
 	
-	public Long getId_product() {
-		return id_product;
+	public Long getId() {
+		return id;
 	}
-	public void setId_product(Long id_product) {
-		this.id_product = id_product;
+	public void setId(Long id) {
+		this.id = id;
 	}
 	public String getName() {
 		return name;
