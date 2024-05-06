@@ -10,32 +10,15 @@ import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 
 @Entity
-@Table
 public class Category {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	@Column(name="id_category")
 	private Long id_category;
-	@Column(name= "nombre_category")
 	private String nombre_category;
-	@Column(name="descripcion")
 	private String descripcion;
-	@Column(name="fecha_creacion")
 	private Date fecha_creacion;
-	@Column(name="fecha_actualizacion")
 	private Date fecha_actualizacion;
-			
-	
-	
-	public Category(Long id_category, String nombre_category, String descripcion, Date fecha_creacion,
-			Date fecha_actualizacion) {
-		this.id_category = id_category;
-		this.nombre_category = nombre_category;
-		this.descripcion = descripcion;
-		this.fecha_creacion = fecha_creacion;
-		this.fecha_actualizacion = fecha_actualizacion;
-	}
 
 	public Category() {	}
 	
