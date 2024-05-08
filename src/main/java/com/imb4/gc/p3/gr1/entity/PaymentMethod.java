@@ -21,14 +21,6 @@ public class PaymentMethod {
 	private Float total;
 	
 	public PaymentMethod(){}
-	
-	public PaymentMethod(Long id, String type, String data, Float total) {
-		super();
-		this.id = id;
-		this.type = type;
-		this.data = data;
-		this.total = total;
-	}
 
 	public Long getId() {
 		return id;
