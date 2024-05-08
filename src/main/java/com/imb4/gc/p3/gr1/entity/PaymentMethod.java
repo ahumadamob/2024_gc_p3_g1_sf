@@ -22,6 +22,7 @@ public class PaymentMethod {
 	
 	public PaymentMethod(){}
 
+	
 	public Long getId() {
 		return id;
 	}
