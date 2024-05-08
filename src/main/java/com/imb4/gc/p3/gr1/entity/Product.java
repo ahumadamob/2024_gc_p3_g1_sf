@@ -18,16 +18,6 @@ public class Product {
 	private String category;
 	
 	public Product() {}
-	public Product(Long id, String name, String description, Float price, int stock, String images, String category) {
-		super();
-		this.id = id;
-		this.name = name;
-		this.description = description;
-		this.price = price;
-		this.stock = stock;
-		this.images = images;
-		this.category = category;
-	}
 	
 	public Long getId() {
 		return id;
