@@ -9,30 +9,21 @@ import jakarta.persistence.Id;
 public class Rating {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id_opciones_valoraciones;
+    private Long id;
+
     private String user;
     private String product;
     private String opinion;
     private int rating;
 
-    // Constructor vacío
     public Rating() {}
 
-    // Constructor con todos los atríbutos
-    public Rating(Long id_opciones_valoraciones, String user, String product, String opinion, int rating) {
-        this.id_opciones_valoraciones = id_opciones_valoraciones;
-        this.user = user;
-        this.product = product;
-        this.opinion = opinion;
-        this.rating = rating;
-    }
-    // Getters y setters
-    public Long getId_opciones_valoraciones() {
-        return id_opciones_valoraciones;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_opciones_valoraciones(Long id_opciones_valoraciones) {
-        this.id_opciones_valoraciones = id_opciones_valoraciones;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getUser() {
@@ -66,5 +57,4 @@ public class Rating {
     public void setRating(int rating) {
         this.rating = rating;
     }
-
 }
