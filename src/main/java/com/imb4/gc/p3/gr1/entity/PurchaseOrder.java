@@ -7,7 +7,7 @@ import jakarta.persistence.Id;
 import java.util.Date;
 
 @Entity
-public class Order {
+public class PurchaseOrder {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
@@ -18,7 +18,7 @@ public class Order {
     private String address;
     private double total;
 
-    public Order() {}
+    public PurchaseOrder() {}
 
     public Long getId_order() {
         return id;
