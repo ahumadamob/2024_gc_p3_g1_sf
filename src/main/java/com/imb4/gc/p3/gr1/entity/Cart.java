@@ -1,13 +1,9 @@
 package com.imb4.gc.p3.gr1.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
-@Table(name = "cart")
+@Table(name = "Cart")
 public class Cart {
 	
 	@Id
@@ -19,6 +15,10 @@ public class Cart {
 	private String user;
 	
 	private Float total;
+	@OneToOne
+	@JoinColumn(name = "purchase_order_id")
+
+	private PurchaseOrder purchaseOrder;
 	
 	public Cart(){}
 
@@ -53,5 +53,13 @@ public class Cart {
 
 	public void setTotal(float total) {
 		this.total = total;
+	}
+
+	public PurchaseOrder getPurchaseOrder() {
+		return purchaseOrder;
+	}
+
+	public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
+		this.purchaseOrder = purchaseOrder;
 	}
 }
