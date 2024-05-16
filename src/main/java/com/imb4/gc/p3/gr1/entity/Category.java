@@ -19,8 +19,6 @@ public class Category {
 	private String descripcion;
 	private Date fecha_creacion;
 	private Date fecha_actualizacion;
-
-	public Category() {	}
 	
 	public Long getId_category() {
 		return id_category;

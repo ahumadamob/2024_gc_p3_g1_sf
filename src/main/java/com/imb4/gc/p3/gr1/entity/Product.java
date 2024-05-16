@@ -17,8 +17,6 @@ public class Product {
 	private String images;
 	private String category;
 	
-	public Product() {}
-	
 	public Long getId() {
 		return id;
 	}
