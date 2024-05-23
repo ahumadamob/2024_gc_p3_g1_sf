@@ -1,9 +1,13 @@
 package com.imb4.gc.p3.gr1.entity;
 
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.persistence.*;
 
+
 @Entity
-@Table(name = "Cart")
+
 public class Cart {
 	
 	@Id
@@ -15,9 +19,7 @@ public class Cart {
 	private String user;
 	
 	private Float total;
-	@OneToOne
-	@JoinColumn(name = "purchase_order_id")
-
+	@ManyToOne
 	private PurchaseOrder purchaseOrder;
 	
 	public Cart(){}
