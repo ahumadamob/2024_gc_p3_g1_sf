@@ -1,10 +1,13 @@
 package com.imb4.gc.p3.gr1.entity;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.util.Date;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class PurchaseOrder {
@@ -18,13 +21,17 @@ public class PurchaseOrder {
     private String address;
     private double total;
 
+    @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL)
+
+    private List<Cart> carts;
+
     public PurchaseOrder() {}
 
-    public Long getId_order() {
+    public Long getId() {
         return id;
     }
 
-    public void setId_order(Long id_order) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -75,4 +82,13 @@ public class PurchaseOrder {
     public void setTotal(double total) {
         this.total = total;
     }
+
+    public List<Cart> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(List<Cart> carts) {
+        this.carts = carts;
+    }
+
 }
