@@ -1,10 +1,10 @@
 package com.imb4.gc.p3.gr1.entity;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.*;
-
+import jakarta.persistence.ManyToOne;
 
 @Entity
 
@@ -16,9 +16,10 @@ public class Cart {
 	
 	private String product;
 	
-	private String user;
-	
 	private Float total;
+	@ManyToOne
+	private User user;
+	
 	@ManyToOne
 	private PurchaseOrder purchaseOrder;
 	
@@ -41,11 +42,11 @@ public class Cart {
 		this.product = product;
 	}
 
-	public String getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public void setUser(String user) {
+	public void setUser(User user) {
 		this.user = user;
 	}
 
