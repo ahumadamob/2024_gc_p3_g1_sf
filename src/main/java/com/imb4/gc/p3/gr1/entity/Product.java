@@ -1,15 +1,18 @@
 package com.imb4.gc.p3.gr1.entity;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.util.List;
 
 @Entity
 public class Product {
+
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+
+	@ManyToMany
+	private List<Cart> carts;
 	private String name;
 	private String description;
 	private Float price;
@@ -25,6 +28,14 @@ public class Product {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	public List<Cart> getCarts() {
+		return carts;
+	}
+
+	public void setCarts(List<Cart> carts) {
+		this.carts = carts;
+	}
+
 	public String getName() {
 		return name;
 	}
