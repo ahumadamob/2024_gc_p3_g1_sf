@@ -1,77 +1,79 @@
 package com.imb4.gc.p3.gr1.entity;
 
-import jakarta.persistence.*;
-
 import java.util.List;
+
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
+
 @Entity
-@Table(name = "Cart")
 public class Cart {
+    
+    @Id
+    @GeneratedValue(strategy=GenerationType.IDENTITY)
+    private Long id;
+    
+    private Float total;
 
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+    @ManyToOne
+    private User user;
 
-	private String product;
+    @ManyToMany
+    @JoinTable(
+        name = "cart_product",
+        joinColumns = @JoinColumn(name = "cart_id"),
+        inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
+    private List<Product> products;
 
-	private String user;
+    @ManyToOne
+    @JoinColumn(name = "purchase_order_id")
+    private PurchaseOrder purchaseOrder;
 
-	private Float total;
+    public Cart() {}
 
+    public Long getId() {
+        return id;
+    }
 
-	//@JoinColumn(name = "purchase_order_id")
-	@ManyToMany()
-	private List<Product> products;
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public List<Product> getProducts() {
+        return products;
+    }
 
-	private PurchaseOrder purchaseOrder;
+    public void setProducts(List<Product> products) {
+        this.products = products;
+    }
 
-	public Cart(){}
+    public User getUser() {
+        return user;
+    }
 
+    public void setUser(User user) {
+        this.user = user;
+    }
 
-	public Long getId() {
-		return id;
-	}
+    public float getTotal() {
+        return total;
+    }
 
-	public void setId(Long id) {
-		this.id = id;
-	}
-	public List<Product> getProducts() {
-		return products;
-	}
+    public void setTotal(float total) {
+        this.total = total;
+    }
 
-	public void setProducts(List<Product> products) {
-		this.products = products;
-	}
+    public PurchaseOrder getPurchaseOrder() {
+        return purchaseOrder;
+    }
 
-	public String getProduct() {
-		return product;
-	}
-
-	public void setProduct(String product) {
-		this.product = product;
-	}
-
-	public String getUser() {
-		return user;
-	}
-
-	public void setUser(String user) {
-		this.user = user;
-	}
-
-	public float getTotal() {
-		return total;
-	}
-
-	public void setTotal(float total) {
-		this.total = total;
-	}
-
-	public PurchaseOrder getPurchaseOrder() {
-		return purchaseOrder;
-	}
-
-	public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
-		this.purchaseOrder = purchaseOrder;
-	}
+    public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
+        this.purchaseOrder = purchaseOrder;
+    }
 }

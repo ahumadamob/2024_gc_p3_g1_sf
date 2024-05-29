@@ -9,11 +9,10 @@ public class Product {
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long id;
 
 	@ManyToMany
 	private List<Cart> carts;
-	private Long id;
-
 	private String name;
 	private String description;
 	private Float price;
