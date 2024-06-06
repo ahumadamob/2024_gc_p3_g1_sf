@@ -13,6 +13,9 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+
+	@ManyToMany
+	private List<Cart> carts;
 	private String name;
 	private String description;
 	private Float price;
@@ -20,6 +23,7 @@ public class Product {
 	private String images;
 	private String category;
 	
+	public Product() {}
 	@ManyToMany
 	private List<Category> categories;
 	
@@ -29,6 +33,14 @@ public class Product {
 	public void setId(Long id) {
 		this.id = id;
 	}
+	public List<Cart> getCarts() {
+		return carts;
+	}
+
+	public void setCarts(List<Cart> carts) {
+		this.carts = carts;
+	}
+
 	public String getName() {
 		return name;
 	}

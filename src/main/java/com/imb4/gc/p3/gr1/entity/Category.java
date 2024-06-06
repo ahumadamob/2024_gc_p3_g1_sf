@@ -3,10 +3,12 @@ package com.imb4.gc.p3.gr1.entity;
 import java.sql.Date;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 import jakarta.persistence.ManyToMany;
 
 @Entity
@@ -19,6 +21,8 @@ public class Category {
 	private String descripcion;
 	private Date fecha_creacion;
 	private Date fecha_actualizacion;
+
+	public Category() {	}
 	
 	@ManyToMany
 	private List<Product> products;
