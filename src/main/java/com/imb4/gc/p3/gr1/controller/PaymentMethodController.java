@@ -52,7 +52,7 @@ public class PaymentMethodController {
 					ResponseUtil.badRequest("No existe un metodo de pago con id ", paymentMethod.getId());
 	}
 	
-	@DeleteMapping
+	@DeleteMapping("{id}")
 	public ResponseEntity<APIResponse<PaymentMethod>> deletePaymentMethod(@PathVariable("id") Long id){
 		if( paymentMethodService.exists(id) ) {
 			paymentMethodService.delete(id);
