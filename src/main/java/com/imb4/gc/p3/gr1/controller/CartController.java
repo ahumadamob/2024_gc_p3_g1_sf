@@ -15,12 +15,12 @@ public class CartController {
     private ICartService cartService;
 
     @GetMapping
-    public List<Cart> getAllCarts() {
+    public List<Cart> getAll() {
         return cartService.getAll();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Cart> getCartById(@PathVariable Long id) {
+    public ResponseEntity<Cart> getById(@PathVariable Long id) {
         Cart cart = cartService.getById(id);
         if (cart == null) {
             return ResponseEntity.notFound().build();
@@ -29,12 +29,12 @@ public class CartController {
     }
 
     @PostMapping
-    public Cart createCart(@RequestBody Cart cart) {
+    public Cart save(@RequestBody Cart cart) {
         return cartService.save(cart);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Cart> updateCart(@PathVariable Long id, @RequestBody Cart cartDetails) {
+    public ResponseEntity<Cart> update(@PathVariable Long id, @RequestBody Cart cartDetails) {
         if (!cartService.exists(id)) {
             return ResponseEntity.notFound().build();
         }
@@ -44,7 +44,7 @@ public class CartController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCart(@PathVariable Long id) {
+    public ResponseEntity<Void> delete(@PathVariable Long id) {
         if (!cartService.exists(id)) {
             return ResponseEntity.notFound().build();
         }
