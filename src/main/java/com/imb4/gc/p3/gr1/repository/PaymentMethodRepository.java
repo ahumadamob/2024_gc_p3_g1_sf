@@ -1,4 +1,4 @@
-package com.imb4.gc.p3.gr1.repository;
+package com.imb4.gc.p3.gr1.service.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 
