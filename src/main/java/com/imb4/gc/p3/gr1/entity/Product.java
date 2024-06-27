@@ -4,6 +4,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import java.util.List;
 
 @Entity
 public class Product {
@@ -16,9 +18,12 @@ public class Product {
 	private int stock;
 	private String images;
 	private String category;
-	
+
+	@OneToMany(mappedBy = "product")
+	private List<Rating> ratings;
+
 	public Product() {}
-	
+
 	public Long getId() {
 		return id;
 	}
@@ -60,5 +65,11 @@ public class Product {
 	}
 	public void setCategory(String category) {
 		this.category = category;
+	}
+	public List<Rating> getRatings() {
+		return ratings;
+	}
+	public void setRatings(List<Rating> ratings) {
+		this.ratings = ratings;
 	}
 }
