@@ -30,17 +30,21 @@ public class RatingController {
         return ratingService.exists(id) ? ResponseUtil.success(ratingService.getById(id)) : ResponseUtil.notFound("No se encontro el id ", id);
     }
 
-   @PostMapping
+    @PostMapping
     public ResponseEntity<APIResponse<Rating>> createRating(@RequestBody Rating rating){
         return ratingService.exists(rating.getId()) ? ResponseUtil.badRequest("Ya existe el rating", rating.getId()) :
                 ResponseUtil.success(ratingService.save(rating));
    }
 
-   @PutMapping
-    public  ResponseEntity<APIResponse<Rating>> updateRating(@RequestBody Rating rating){
-        return ratingService.exists(rating.getId()) ?
-                ResponseUtil.success(ratingService.save(rating)) : ResponseUtil.badRequest("No existe el rating", rating.getId());
-   }
+    @PutMapping("/{id}")
+    public ResponseEntity<APIResponse<Rating>> updateRating(@PathVariable Long id, @RequestBody Rating rating) {
+        if (!ratingService.exists(id)) {
+            return ResponseUtil.badRequest("No existe el rating", id);
+        }
+        rating.setId(id); 
+        Rating updatedRating = ratingService.save(rating);
+        return ResponseUtil.success(updatedRating);
+    }
 
    @DeleteMapping("{id}")
     public ResponseEntity<APIResponse<Rating>> deleteRating(@PathVariable("id") Long id){
