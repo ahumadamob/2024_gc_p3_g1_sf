@@ -14,7 +14,7 @@ public class Category {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id_category;
+	private Long id;
 	private String nombre_category;
 	private String descripcion;
 	private Date fecha_creacion;
@@ -25,11 +25,11 @@ public class Category {
 	@ManyToMany
 	private List<Product> products;
 	
-	public Long getId_category() {
-		return id_category;
+	public Long getId() {
+		return id;
 	}
-	public void setId_category(Long id_category) {
-		this.id_category = id_category;
+	public void setId(Long id) {
+		this.id = id;
 	}
 	public String getNombre_category() {
 		return nombre_category;
