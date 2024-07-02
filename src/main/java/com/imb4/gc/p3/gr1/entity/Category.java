@@ -1,20 +1,20 @@
 package com.imb4.gc.p3.gr1.entity;
 
 import java.sql.Date;
+import java.util.List;
 
-import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Category {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id_category;
+	private Long id;
 	private String nombre_category;
 	private String descripcion;
 	private Date fecha_creacion;
@@ -22,11 +22,14 @@ public class Category {
 
 	public Category() {	}
 	
-	public Long getId_category() {
-		return id_category;
+	@ManyToMany
+	private List<Product> products;
+	
+	public Long getId() {
+		return id;
 	}
-	public void setId_category(Long id_category) {
-		this.id_category = id_category;
+	public void setId(Long id) {
+		this.id = id;
 	}
 	public String getNombre_category() {
 		return nombre_category;
@@ -51,5 +54,11 @@ public class Category {
 	}
 	public void setFecha_actualizacion(Date fecha_actualizacion) {
 		this.fecha_actualizacion = fecha_actualizacion;
+	}
+	public List<Product> getProducts() {
+		return products;
+	}
+	public void setProducts(List<Product> products) {
+		this.products = products;
 	}
 }

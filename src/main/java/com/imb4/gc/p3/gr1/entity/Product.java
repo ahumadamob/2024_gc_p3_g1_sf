@@ -6,30 +6,46 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import java.util.List;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Product {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+
+	@ManyToMany
+	private List<Cart> carts;
 	private String name;
 	private String description;
 	private Float price;
 	private int stock;
 	private String images;
 	private String category;
+	@ManyToMany
+	private List<Category> categories;
+	
 
 	@OneToMany(mappedBy = "product")
 	private List<Rating> ratings;
 
 	public Product() {}
-
+	
 	public Long getId() {
 		return id;
 	}
 	public void setId(Long id) {
 		this.id = id;
 	}
+
+	public List<Cart> getCarts() {
+		return carts;
+	}
+
+	public void setCarts(List<Cart> carts) {
+		this.carts = carts;
+	}
+
 	public String getName() {
 		return name;
 	}
@@ -68,8 +84,14 @@ public class Product {
 	}
 	public List<Rating> getRatings() {
 		return ratings;
+
+	public List<Category> getCategories() {
+		return categories;
 	}
 	public void setRatings(List<Rating> ratings) {
 		this.ratings = ratings;
+
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
 	}
 }

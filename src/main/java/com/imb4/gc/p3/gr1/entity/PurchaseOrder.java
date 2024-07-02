@@ -1,47 +1,35 @@
 package com.imb4.gc.p3.gr1.entity;
 
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import java.util.Date;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class PurchaseOrder {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id_order;
-    private String user;
-    private String cart;
+    private Long id;
     private String date;
     private String state;
     private String address;
     private double total;
 
+    @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL)
+    private List<Cart> carts;
+
     public PurchaseOrder() {}
 
-    public Long getId_order() {
-        return id_order;
+    public Long getId() {
+        return id;
     }
 
-    public void setId_order(Long id_order) {
-        this.id_order = id_order;
-    }
-
-    public String getUser() {
-        return user;
-    }
-
-    public void setUser(String user) {
-        this.user = user;
-    }
-
-    public String getCart() {
-        return cart;
-    }
-
-    public void setCart(String cart) {
-        this.cart = cart;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getDate() {
@@ -75,4 +63,13 @@ public class PurchaseOrder {
     public void setTotal(double total) {
         this.total = total;
     }
+
+    public List<Cart> getCarts() {
+        return carts;
+    }
+
+    public void setCarts(List<Cart> carts) {
+        this.carts = carts;
+    }
+
 }
