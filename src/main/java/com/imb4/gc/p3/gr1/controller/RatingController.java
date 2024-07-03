@@ -5,7 +5,6 @@ import com.imb4.gc.p3.gr1.entity.Rating;
 import com.imb4.gc.p3.gr1.service.IRatingService;
 import com.imb4.gc.p3.gr1.util.APIResponse;
 import com.imb4.gc.p3.gr1.util.ResponseUtil;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,7 +21,7 @@ public class RatingController {
     @GetMapping
     public ResponseEntity<APIResponse<List<Rating>>> getAllRating(){
         List<Rating> rating = ratingService.getAll();
-        return rating.isEmpty() ? ResponseUtil.notFound("No se encontraron ratingins") : ResponseUtil.success(rating);
+        return rating.isEmpty() ? ResponseUtil.notFound("No se encontrarón ratingins") : ResponseUtil.success(rating);
     }
 
     @GetMapping("{id}")
