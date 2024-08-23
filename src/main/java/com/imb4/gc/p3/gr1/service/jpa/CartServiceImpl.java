@@ -1,6 +1,8 @@
-package com.imb4.gc.p3.gr1.service;
+package com.imb4.gc.p3.gr1.service.jpa;
 
 import java.util.List;
+
+import com.imb4.gc.p3.gr1.service.ICartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.imb4.gc.p3.gr1.entity.Cart;
