@@ -5,9 +5,13 @@ import java.util.List;
 import com.imb4.gc.p3.gr1.entity.Product;
 
 public interface IProductService {
-    public List<Product> getAll();
-    public Product getById(Long id);
-    public Product save(Product product);
-    public void delete(Long id);
-    public boolean exists(Long id);
+    List<Product> getAll();
+
+    Product getById(Long id);
+
+    Product save(Product product);
+
+    void delete(Long id);
+
+    boolean exists(Long id);
 }
