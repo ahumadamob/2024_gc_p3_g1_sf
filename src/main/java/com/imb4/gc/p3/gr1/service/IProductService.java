@@ -14,4 +14,10 @@ public interface IProductService {
     void delete(Long id);
 
     boolean exists(Long id);
+    
+    public List<Product> encontrarPorNombre(String name);
+    
+    public List<Product> precioMenorIgualA(float price);
+    
+    public List<Product> precioMayorIgualA(float price);
 }

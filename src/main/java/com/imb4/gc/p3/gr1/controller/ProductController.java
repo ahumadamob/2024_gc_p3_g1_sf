@@ -3,6 +3,7 @@ package com.imb4.gc.p3.gr1.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -63,5 +64,35 @@ public class ProductController {
 		}else {
 			return ResponseUtil.badRequest("No se encontró el producto con id {0}", id);
 		}
+	}
+	
+	@GetMapping("/pornombre/{nam}")
+	public ResponseEntity<List<Product>> buscarProductosPorNombre(@PathVariable("nam") String name){
+		List<Product> listado = productService.encontrarPorNombre("%" + name + "%");
+		if(listado.isEmpty()) {
+			return new ResponseEntity<>(listado, HttpStatus.NO_CONTENT);
+		}else {
+			return new ResponseEntity<>(listado, HttpStatus.OK); 
+		}		
+	}
+	
+	@GetMapping("/menorIgualA/{pri}")
+	public ResponseEntity<List<Product>> buscarProductosPorPricioMenorIgual(@PathVariable("pri") float price){
+		List<Product> listado = productService.precioMenorIgualA(price);
+		if(listado.isEmpty()) {
+			return new ResponseEntity<>(listado, HttpStatus.NO_CONTENT);
+		}else {
+			return new ResponseEntity<>(listado, HttpStatus.OK); 
+		}		
+	}
+	
+	@GetMapping("/mayorIgualA/{pri}")
+	public ResponseEntity<List<Product>> buscarProductosPorPrecioMayorIgual(@PathVariable("pri") float price){
+		List<Product> listado = productService.precioMayorIgualA(price);
+		if(listado.isEmpty()) {
+			return new ResponseEntity<>(listado, HttpStatus.NO_CONTENT);
+		}else {
+			return new ResponseEntity<>(listado, HttpStatus.OK); 
+		}		
 	}
 }
