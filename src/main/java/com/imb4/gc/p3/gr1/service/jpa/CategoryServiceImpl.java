@@ -1,5 +1,6 @@
 package com.imb4.gc.p3.gr1.service.jpa;
 
+import java.sql.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -37,6 +38,41 @@ public class CategoryServiceImpl implements ICategoryService {
 	@Override
 	public boolean exists(Long id) {
 		return id == null ? false : repo.existsById(id);
+	}
+
+	@Override
+	public List<Category> contarPorId() {
+		return repo.countById();
+	}
+
+	@Override
+	public List<Category> encontarPorNombre(String nombre) {
+		return repo.findByNombreCategoryLike(nombre);
+	}
+
+	@Override
+	public List<Category> encontarPorDescripcion(String nombre) {
+		return repo.findByDescripcionLike(nombre);
+	}
+
+	@Override
+	public List<Category> encontarPorFechaCreacion(Date fecha) {
+		return repo.findByFechaCreacionEquals(fecha);
+	}
+
+	@Override
+	public List<Category> encontarPorFechaCreacionIntervalo(Date inicio, Date fin) {
+		return repo.findByFechaCreacionBetween(inicio, fin);
+	}
+
+	@Override
+	public List<Category> encontarPorFechaActualizacion(Date fecha) {
+		return repo.findByFechaActualizacionEquals(fecha);
+	}
+
+	@Override
+	public List<Category> encontarPorFechaActualizacionIntervalo(Date inicio, Date fin) {
+		return repo.findByFechaActualizacionBetween(inicio, fin);
 	}
 	
 }
