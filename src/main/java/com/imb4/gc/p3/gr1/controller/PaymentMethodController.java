@@ -61,4 +61,13 @@ public class PaymentMethodController {
 			return ResponseUtil.badRequest("No se encontró el metodo de pago con el id: ", id);
 		}
 	}
+	
+	@GetMapping("/name/{name}")
+	public ResponseEntity<APIResponse<List<PaymentMethod>>> getPaymentMethodsByName(@PathVariable("name") String name) {
+	    List<PaymentMethod> paymentMethods = paymentMethodService.findByName(name);
+	    return paymentMethods.isEmpty()
+	        ? ResponseUtil.notFound("No se encontraron métodos de pago con el nombre: " + name)
+	        : ResponseUtil.success(paymentMethods);
+	}
+
 }

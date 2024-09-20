@@ -21,6 +21,12 @@ public class PaymentMethodServiceImpl implements IPaymentMethodService{
 	}
 
 	@Override
+	public List<PaymentMethod> findByName(String name) {
+	    return repo.findByName(name);
+	}
+
+	
+	@Override
 	public PaymentMethod getById(Long id) {
 		return repo.findById(id).orElse(null);
 	}
