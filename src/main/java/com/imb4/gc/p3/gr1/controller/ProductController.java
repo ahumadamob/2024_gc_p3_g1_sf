@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,6 +17,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.imb4.gc.p3.gr1.entity.Product;
+import com.imb4.gc.p3.gr1.exceptions.ConflictException;
+import com.imb4.gc.p3.gr1.exceptions.ErrorResponse;
+import com.imb4.gc.p3.gr1.exceptions.ResourceNotFoundException;
 import com.imb4.gc.p3.gr1.service.IProductService;
 import com.imb4.gc.p3.gr1.util.APIResponse;
 import com.imb4.gc.p3.gr1.util.ResponseUtil;
@@ -37,23 +41,27 @@ public class ProductController {
 	
 	@GetMapping("{id}")
 	public ResponseEntity<APIResponse<Product>> getProductById(@PathVariable("id") Long id){
-		return productService.exists(id)? ResponseUtil.success(productService.getById(id)) :
-			ResponseUtil.notFound("No se encontró producto con id {0}", id);
+		if ( !productService.exists(id) ) {
+			throw new ResourceNotFoundException("No se encontró producto con id " + id);
+		}
+		Product product = productService.getById(id);
+		return ResponseUtil.success(product);
 	}
 	
 	@PostMapping
 	public ResponseEntity<APIResponse<Product>> saveProduct(@Valid @RequestBody Product product, BindingResult result){
-		if (result.hasErrors()) {
-            return ResponseUtil.badRequest("Errores de validación");
+		if ( productService.exists( product.getId() ) ) {
+			throw new ConflictException("Ya existe un producto con id " + product.getId());
         }
-		return productService.exists(product.getId())? ResponseUtil.badRequest("Ya existe un producto con id {0}", product.getId()) :
-			ResponseUtil.success(productService.save(product));
+		return ResponseUtil.success(productService.save(product));
 	}
 	
 	@PutMapping
-	public ResponseEntity<APIResponse<Product>> updateProduct(@RequestBody Product product){
-		return productService.exists(product.getId())? ResponseUtil.success(productService.save(product)) :
-			ResponseUtil.badRequest("No existe un producto con id {0}", product.getId());
+	public ResponseEntity<APIResponse<Product>> updateProduct(@Valid @RequestBody Product product){
+		if ( !productService.exists( product.getId() ) ) {
+			throw new ResourceNotFoundException( "No existe un producto con id {0}" + product.getId() );
+		}
+		return ResponseUtil.success( productService.save(product) );
 	}
 	
 	@DeleteMapping("{id}")
@@ -62,7 +70,7 @@ public class ProductController {
 			productService.delete(id);
 			return ResponseUtil.successDeleted("Se eliminó el producto con id {0}", id);
 		}else {
-			return ResponseUtil.badRequest("No se encontró el producto con id {0}", id);
+			throw new ResourceNotFoundException( "No se encontró el producto con id " + id);
 		}
 	}
 	
@@ -95,4 +103,22 @@ public class ProductController {
 			return new ResponseEntity<>(listado, HttpStatus.OK); 
 		}		
 	}
+	
+	@ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleResourceNotFoundException(ResourceNotFoundException ex) {
+        ErrorResponse errorResponse = new ErrorResponse("Recurso no encontrado", ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+	
+	@ExceptionHandler(ConflictException.class)
+    public ResponseEntity<ErrorResponse> handleConflict(ConflictException ex) {
+    	ErrorResponse errorResponse = new ErrorResponse("El recurso ya existe", ex.getMessage());
+    	return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleGeneralException(Exception ex) {
+        ErrorResponse errorResponse = new ErrorResponse("Error interno del servidor", ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }
