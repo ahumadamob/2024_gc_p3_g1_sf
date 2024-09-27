@@ -10,6 +10,8 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 public class Cart {
@@ -18,7 +20,9 @@ public class Cart {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     
-    private Float total;
+    @PositiveOrZero
+    @NotNull
+    private float total;
 
     @ManyToOne
     private User user;

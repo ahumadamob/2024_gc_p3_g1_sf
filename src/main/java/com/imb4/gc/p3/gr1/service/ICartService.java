@@ -9,4 +9,5 @@ public interface ICartService {
     Cart save(Cart cart);
     void delete(Long id);
     boolean exists(Long id);
+    List<Cart> getByTotal(float start, float end);
 }
