@@ -3,8 +3,11 @@ package com.imb4.gc.p3.gr1.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -14,8 +17,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.imb4.gc.p3.gr1.entity.Category;
+import com.imb4.gc.p3.gr1.exceptions.ConflictException;
+import com.imb4.gc.p3.gr1.exceptions.ErrorResponse;
+import com.imb4.gc.p3.gr1.exceptions.ResourceNotFoundException;
 import com.imb4.gc.p3.gr1.util.APIResponse;
 import com.imb4.gc.p3.gr1.util.ResponseUtil;
+
+import jakarta.validation.Valid;
+
 import com.imb4.gc.p3.gr1.service.ICategoryService;
 
 @RestController
@@ -39,14 +48,18 @@ public class CategoryController {
 	}
 	
 	@PostMapping
-	public ResponseEntity<APIResponse<Category>> createCategory(@RequestBody Category category) {
+	public ResponseEntity<APIResponse<Category>> createCategory(@Valid @RequestBody Category category, BindingResult result) {
+		if (result.hasErrors()) {
+			return ResponseUtil.badRequest("Error de validación al crear categoría");}
 		return service.exists(category.getId()) ? ResponseUtil.badRequest("Ya existe una categoría con la id {0}", category.getId()) :
 			ResponseUtil.success(service.save(category));
 	}
 	
 	@PutMapping("{id}")
-	public ResponseEntity<APIResponse<Category>> updateCategory(@RequestBody Category category, @PathVariable("id") Long id) {
+	public ResponseEntity<APIResponse<Category>> updateCategory(@Valid @RequestBody Category category, @PathVariable("id") Long id, BindingResult result) {
 		category.setId(id);
+		if (result.hasErrors()) {
+			return ResponseUtil.badRequest("Error de validación al actualizar categoría");}
 		return service.exists(id) ? ResponseUtil.success(service.save(category)) :
 			ResponseUtil.badRequest("No existe una categoría con la id {0}", id);
 	}
@@ -60,4 +73,22 @@ public class CategoryController {
 			return ResponseUtil.badRequest("No existe una categoría con la id {0}", id);
 		}
 	}
+	
+	@ExceptionHandler(ResourceNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleResourceNotFoundException(ResourceNotFoundException ex) {
+        ErrorResponse errorResponse = new ErrorResponse("Recurso no encontrado", ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.NOT_FOUND);
+    }
+	
+	@ExceptionHandler(ConflictException.class)
+    public ResponseEntity<ErrorResponse> handleConflict(ConflictException ex) {
+    	ErrorResponse errorResponse = new ErrorResponse("El recurso ya existe", ex.getMessage());
+    	return new ResponseEntity<>(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+	
+	@ExceptionHandler(Exception.class)
+    public ResponseEntity<ErrorResponse> handleGeneralException(Exception ex) {
+        ErrorResponse errorResponse = new ErrorResponse("Error interno del servidor", ex.getMessage());
+        return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

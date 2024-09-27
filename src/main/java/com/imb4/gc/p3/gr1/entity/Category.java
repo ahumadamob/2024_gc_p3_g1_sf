@@ -8,6 +8,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Category {
@@ -15,10 +16,15 @@ public class Category {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
-	private String nombre_category;
+	
+	@NotBlank(message = "El nombre de la categoría no puede estar en blanco")
+	private String nombreCategory;
+	
+	@NotBlank(message = "La descripción de la categoría no puede estar en blanco")
 	private String descripcion;
-	private Date fecha_creacion;
-	private Date fecha_actualizacion;
+	
+	private Date fechaCreacion;
+	private Date fechaActualizacion;
 
 	public Category() {	}
 	
@@ -32,10 +38,10 @@ public class Category {
 		this.id = id;
 	}
 	public String getNombre_category() {
-		return nombre_category;
+		return nombreCategory;
 	}
 	public void setNombre_category(String nombre_category) {
-		this.nombre_category = nombre_category;
+		this.nombreCategory = nombre_category;
 	}
 	public String getDescripcion() {
 		return descripcion;
@@ -44,16 +50,16 @@ public class Category {
 		this.descripcion = descripcion;
 	}
 	public Date getFecha_creacion() {
-		return fecha_creacion;
+		return fechaCreacion;
 	}
 	public void setFecha_creacion(Date fecha_creacion) {
-		this.fecha_creacion = fecha_creacion;
+		this.fechaCreacion = fecha_creacion;
 	}
 	public Date getFecha_actualizacion() {
-		return fecha_actualizacion;
+		return fechaActualizacion;
 	}
 	public void setFecha_actualizacion(Date fecha_actualizacion) {
-		this.fecha_actualizacion = fecha_actualizacion;
+		this.fechaActualizacion = fecha_actualizacion;
 	}
 	public List<Product> getProducts() {
 		return products;
