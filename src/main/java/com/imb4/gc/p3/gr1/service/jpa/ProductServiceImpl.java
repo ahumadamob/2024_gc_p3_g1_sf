@@ -37,4 +37,19 @@ public class ProductServiceImpl implements IProductService{
 	public boolean exists(Long id) {
 		return repository.existsById(id) ;
 	}
+
+	@Override
+	public List<Product> encontrarPorNombre(String name) {
+		return repository.findByNameLike(name);
+	}
+
+	@Override
+	public List<Product> precioMenorIgualA(float price) {
+		return repository.findByPriceLessThanEqual(price);
+	}
+
+	@Override
+	public List<Product> precioMayorIgualA(float price) {
+		return repository.findByPriceGreaterThanEqual(price);
+	}
 }
