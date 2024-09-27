@@ -8,7 +8,7 @@ import com.imb4.gc.p3.gr1.entity.Category;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
-	List<Category> countById();
+	List<Category> countById(Long id);
 	List<Category> findByNombreCategoryLike(String nombre);
 	List<Category> findByDescripcionLike(String nombre);
 	List<Category> findByFechaCreacionEquals(Date fecha);
