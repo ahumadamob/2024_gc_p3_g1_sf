@@ -5,6 +5,9 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 
 @Entity
 @Table(name = "payment_method")
@@ -14,10 +17,26 @@ public class PaymentMethod {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
+	@NotEmpty(message= "El tipo no puede estar vacio")
 	private String type;
 	
+	@NotEmpty(message= "El nombre no puede estar vacio")
+	private String name;
+	
+	public String getName() {
+		return name;
+	}
+
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	@NotEmpty(message= "El data no puede estar vacio")
 	private String data;
 	
+	@NotNull(message="El total no puede ser nulo")
+    @Positive(message="El total debe ser un valor positivo")
 	private Float total;
 	
 	public PaymentMethod(){}

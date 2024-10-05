@@ -6,6 +6,8 @@ import com.imb4.gc.p3.gr1.entity.PaymentMethod;
 
 public interface IPaymentMethodService {
     List<PaymentMethod> getAll();
+    
+    List<PaymentMethod> findByName(String name);
 
     PaymentMethod getById(Long id);
 
