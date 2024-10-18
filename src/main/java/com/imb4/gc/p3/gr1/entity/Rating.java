@@ -1,15 +1,9 @@
 package com.imb4.gc.p3.gr1.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 
 @Entity
-public class Rating {
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+public class Rating extends BaseEntity{
 
     private String user;
     private String product;
@@ -17,14 +11,6 @@ public class Rating {
     private int rating;
 
     public Rating() {}
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUser() {
         return user;

@@ -3,9 +3,6 @@ package com.imb4.gc.p3.gr1.entity;
 import java.util.List;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
@@ -13,10 +10,7 @@ import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
-public class Product {
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+public class Product extends BaseEntity{
 
 	@ManyToMany
 	private List<Cart> carts;
@@ -36,14 +30,6 @@ public class Product {
 	private List<Category> categories;
 	
 	public Product() {}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public List<Cart> getCarts() {
 		return carts;

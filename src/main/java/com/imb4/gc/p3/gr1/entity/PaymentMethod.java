@@ -1,9 +1,6 @@
 package com.imb4.gc.p3.gr1.entity;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -11,11 +8,7 @@ import jakarta.validation.constraints.Positive;
 
 @Entity
 @Table(name = "payment_method")
-public class PaymentMethod {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+public class PaymentMethod extends BaseEntity{
 	
 	@NotEmpty(message= "El tipo no puede estar vacio")
 	private String type;
@@ -41,14 +34,6 @@ public class PaymentMethod {
 	
 	public PaymentMethod(){}
 
-	
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
 
 	public String getType() {
 		return type;
