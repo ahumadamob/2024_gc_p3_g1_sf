@@ -4,17 +4,11 @@ import java.sql.Date;
 import java.util.List;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
 
 @Entity
-public class Category {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+public class Category extends BaseEntity{
+
 	private String nombre_category;
 	private String descripcion;
 	private Date fecha_creacion;
@@ -25,12 +19,6 @@ public class Category {
 	@ManyToMany
 	private List<Product> products;
 	
-	public Long getId() {
-		return id;
-	}
-	public void setId(Long id) {
-		this.id = id;
-	}
 	public String getNombre_category() {
 		return nombre_category;
 	}
