@@ -4,17 +4,27 @@ import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 public class Product extends BaseEntity{
 
 	@ManyToMany
 	private List<Cart> carts;
+	@NotEmpty
 	private String name;
+	@NotNull
 	private String description;
+	@PositiveOrZero
 	private Float price;
+	@PositiveOrZero
 	private int stock;
+	@NotBlank
 	private String images;
+	@NotNull
 	private String category;
 	@ManyToMany
 	private List<Category> categories;

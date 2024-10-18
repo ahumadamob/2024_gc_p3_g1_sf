@@ -7,11 +7,15 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 public class Cart extends BaseEntity{
     
-    private Float total;
+    @PositiveOrZero
+    @NotNull
+    private float total;
 
     @ManyToOne
     private User user;

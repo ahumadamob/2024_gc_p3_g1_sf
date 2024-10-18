@@ -5,14 +5,19 @@ import java.util.List;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.ManyToMany;
+import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Category extends BaseEntity{
-
+  
+  @NotBlank(message = "El nombre de la categoría no puede estar en blanco")
 	private String nombre_category;
+
+	@NotBlank(message = "La descripción de la categoría no puede estar en blanco")
 	private String descripcion;
-	private Date fecha_creacion;
-	private Date fecha_actualizacion;
+	
+	private Date fechaCreacion;
+	private Date fechaActualizacion;
 
 	public Category() {	}
 	
@@ -32,16 +37,16 @@ public class Category extends BaseEntity{
 		this.descripcion = descripcion;
 	}
 	public Date getFecha_creacion() {
-		return fecha_creacion;
+		return fechaCreacion;
 	}
 	public void setFecha_creacion(Date fecha_creacion) {
-		this.fecha_creacion = fecha_creacion;
+		this.fechaCreacion = fecha_creacion;
 	}
 	public Date getFecha_actualizacion() {
-		return fecha_actualizacion;
+		return fechaActualizacion;
 	}
 	public void setFecha_actualizacion(Date fecha_actualizacion) {
-		this.fecha_actualizacion = fecha_actualizacion;
+		this.fechaActualizacion = fecha_actualizacion;
 	}
 	public List<Product> getProducts() {
 		return products;

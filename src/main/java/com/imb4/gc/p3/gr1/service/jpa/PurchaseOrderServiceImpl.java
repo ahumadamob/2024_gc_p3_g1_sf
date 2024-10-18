@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.imb4.gc.p3.gr1.entity.PurchaseOrder;
+import com.imb4.gc.p3.gr1.exceptions.ResourceNotFoundException;
 import com.imb4.gc.p3.gr1.repository.PurchaseOrderRepository;
 import com.imb4.gc.p3.gr1.service.IPurchaseOrderService;
 
@@ -19,7 +20,7 @@ public class PurchaseOrderServiceImpl implements IPurchaseOrderService{
 	}
 
 	@Override
-	public PurchaseOrder getById(Long id) {
+	public PurchaseOrder getById(Long id) throws ResourceNotFoundException{
 		return purchaseOrderRepository.findById(id).orElse(null);
 	}
 
@@ -36,5 +37,10 @@ public class PurchaseOrderServiceImpl implements IPurchaseOrderService{
 	@Override
 	public boolean exists(Long id) {
 		return id == null ? false : purchaseOrderRepository.existsById(id);
+	}
+
+	@Override
+	public List<PurchaseOrder> getByState(String state) {
+		return purchaseOrderRepository.findByState(state);
 	}
 }

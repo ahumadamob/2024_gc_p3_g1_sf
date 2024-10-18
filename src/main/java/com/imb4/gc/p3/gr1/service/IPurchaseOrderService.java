@@ -10,4 +10,5 @@ public interface IPurchaseOrderService {
     PurchaseOrder save(PurchaseOrder purchaseOrder);
     void delete(Long id);
     boolean exists(Long id);
+    List<PurchaseOrder> getByState(String state);
 }

@@ -38,4 +38,11 @@ public class CartServiceImpl implements ICartService {
     public boolean exists(Long id) {
         return cartRepository.existsById(id);
     }
+
+	@Override
+	public List<Cart> getByTotal(float start, float end) {
+		return cartRepository.findByTotalBetween(start, end);
+	}
+	
+	
 }
