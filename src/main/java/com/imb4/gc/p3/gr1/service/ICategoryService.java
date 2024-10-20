@@ -16,8 +16,6 @@ public interface ICategoryService {
 
     boolean exists(Long id);
     
-    List<Category> contarPorId();
-    
     List<Category> encontarPorNombre(String nombre);
     
     List<Category> encontarPorDescripcion(String nombre);
