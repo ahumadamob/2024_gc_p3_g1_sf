@@ -41,11 +41,6 @@ public class CategoryServiceImpl implements ICategoryService {
 	}
 
 	@Override
-	public List<Category> contarPorId() {
-		return repo.countById();
-	}
-
-	@Override
 	public List<Category> encontarPorNombre(String nombre) {
 		return repo.findByNombreCategoryLike(nombre);
 	}
