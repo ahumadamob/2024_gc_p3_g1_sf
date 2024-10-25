@@ -32,6 +32,20 @@ public class RatingController {
                 ResponseUtil.notFound("No se encontró el rating con el ID " + id);
     }
 
+    // Obtener ratings por usuario
+    @GetMapping("/user/{user}")
+    public ResponseEntity<APIResponse<List<Rating>>> getRatingsByUser(@PathVariable("user") String user) {
+        List<Rating> ratings = ratingService.findByUser(user);
+        return ratings.isEmpty() ? ResponseUtil.notFound("No se encontraron ratings para el usuario " + user) : ResponseUtil.success(ratings);
+    }
+
+    // Obtener ratings por producto
+    @GetMapping("/product/{product}")
+    public ResponseEntity<APIResponse<List<Rating>>> getRatingsByProduct(@PathVariable("product") String product) {
+        List<Rating> ratings = ratingService.findByProduct(product);
+        return ratings.isEmpty() ? ResponseUtil.notFound("No se encontraron ratings para el producto " + product) : ResponseUtil.success(ratings);
+    }
+
     // Crear un nuevo rating
     @PostMapping
     public ResponseEntity<APIResponse<Rating>> createRating(@RequestBody Rating rating) {
