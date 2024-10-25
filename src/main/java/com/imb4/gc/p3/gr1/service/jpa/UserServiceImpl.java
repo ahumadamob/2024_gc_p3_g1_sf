@@ -5,9 +5,8 @@ import com.imb4.gc.p3.gr1.repository.UserRepository;
 import com.imb4.gc.p3.gr1.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import com.imb4.gc.p3.gr1.exception.UserNotFoundException;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -21,8 +20,9 @@ public class UserServiceImpl implements IUserService {
     }
 
     @Override
-    public Optional<User> findById(Long id) {
-        return userRepository.findById(id);
+    public User findById(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(() -> new UserNotFoundException("User not found with id " + id));
     }
 
     @Override
@@ -32,6 +32,9 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public void deleteById(Long id) {
+        if (!userRepository.existsById(id)) {
+            throw new UserNotFoundException("Cannot delete. User not found with id " + id);
+        }
         userRepository.deleteById(id);
     }
 }
