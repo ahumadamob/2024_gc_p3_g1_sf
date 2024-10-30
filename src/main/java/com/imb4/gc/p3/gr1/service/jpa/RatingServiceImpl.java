@@ -39,4 +39,14 @@ public class RatingServiceImpl implements IRatingService {
     public boolean exists(Long id) {
         return id==null ? false : ratingRepository.existsById(id);
     }
+
+	@Override
+	public Rating approve(Rating rating) {
+		if (rating.getId() != null) {
+			rating = ratingRepository.getById(rating.getId());
+			rating.setApproved(true);
+			return ratingRepository.save(rating);
+		}
+		return rating;
+	}
 }

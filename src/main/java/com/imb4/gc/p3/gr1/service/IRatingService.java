@@ -10,4 +10,5 @@ public interface IRatingService {
     Rating save(Rating rating);
     void delete(Long id);
     boolean exists(Long id);
+    Rating approve(Rating rating);
 }
