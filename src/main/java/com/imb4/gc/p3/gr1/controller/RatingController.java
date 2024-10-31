@@ -47,13 +47,8 @@ public class RatingController {
     }
     
     @PutMapping("{id}/approve")
-    public ResponseEntity<APIResponse<Rating>> approveRating(@PathVariable("id") Long id, @RequestBody Rating rating) {
-    	if (!ratingService.exists(id)) {
-            return ResponseUtil.badRequest("No existe el rating", id);
-        }
-    	rating.setId(id);
-    	rating.setApproved(true);
-    	return ResponseUtil.success(ratingService.approve(rating));
+    public ResponseEntity<APIResponse<Rating>> approveRating(@PathVariable("id") Long id) {
+    	return ratingService.exists(id) ? ResponseUtil.success(ratingService.approve(id)) : ResponseUtil.badRequest("No existe el rating", id);
     }
 
    @DeleteMapping("{id}")

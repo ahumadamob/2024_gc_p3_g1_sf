@@ -41,12 +41,9 @@ public class RatingServiceImpl implements IRatingService {
     }
 
 	@Override
-	public Rating approve(Rating rating) {
-		if (rating.getId() != null) {
-			rating = ratingRepository.getById(rating.getId());
-			rating.setApproved(true);
-			return ratingRepository.save(rating);
-		}
-		return rating;
+	public Rating approve(Long id) {
+		Rating rating = ratingRepository.getById(id);
+		rating.setApproved(true);
+		return ratingRepository.save(rating);
 	}
 }
