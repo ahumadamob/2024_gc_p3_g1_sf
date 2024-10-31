@@ -26,6 +26,9 @@ public class Cart {
 
     @ManyToOne
     private User user;
+    
+    @ManyToOne
+    private PaymentMethod paymentMethod;
 
     @ManyToMany
     @JoinTable(
@@ -80,4 +83,13 @@ public class Cart {
     public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
         this.purchaseOrder = purchaseOrder;
     }
+
+	public PaymentMethod getPaymentMethod() {
+		return paymentMethod;
+	}
+
+	public void setPaymentMethod(PaymentMethod paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
+    
 }
