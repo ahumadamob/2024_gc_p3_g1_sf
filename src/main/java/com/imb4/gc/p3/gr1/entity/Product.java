@@ -35,6 +35,10 @@ public class Product {
 	@ManyToMany
 	private List<Category> categories;
 	
+	private boolean destacado;
+	
+	
+	
 	public Product() {}
 
 	public Long getId() {
@@ -108,4 +112,14 @@ public class Product {
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}
+
+	public boolean isDestacado() {
+		return destacado;
+	}
+
+	public void setDestacado(boolean destacado) {
+		this.destacado = destacado;
+	}
+
+
 }
