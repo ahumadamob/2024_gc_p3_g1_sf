@@ -23,7 +23,7 @@ public class UserController {
     @GetMapping("/{id}")
     public ResponseEntity<User> getUserById(@PathVariable Long id) {
         User user = userService.findById(id);
-        return ResponseEntity.ok(user); // Ya no usamos Optional, sino directamente User
+        return ResponseEntity.ok(user);
     }
 
     @PostMapping
@@ -43,5 +43,11 @@ public class UserController {
     public ResponseEntity<Void> deleteUser(@PathVariable Long id) {
         userService.deleteById(id);
         return ResponseEntity.ok().build();
+    }
+
+    @GetMapping("/email/{email}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable String email) {
+        User user = userService.findByEmail(email);
+        return ResponseEntity.ok(user);
     }
 }

@@ -6,6 +6,7 @@ import com.imb4.gc.p3.gr1.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.imb4.gc.p3.gr1.exception.UserNotFoundException;
+
 import java.util.List;
 
 @Service
@@ -36,5 +37,9 @@ public class UserServiceImpl implements IUserService {
             throw new UserNotFoundException("Cannot delete. User not found with id " + id);
         }
         userRepository.deleteById(id);
+    }
+    @Override
+    public User findByEmail(String email) {
+        return userRepository.findByEmail(email);
     }
 }
