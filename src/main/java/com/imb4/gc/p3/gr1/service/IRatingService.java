@@ -10,4 +10,6 @@ public interface IRatingService {
     Rating save(Rating rating);
     void delete(Long id);
     boolean exists(Long id);
+    List<Rating> getRatingsByProductId(Long productId);
+    Double calculateAverageNoteByProductId(Long productId);
 }

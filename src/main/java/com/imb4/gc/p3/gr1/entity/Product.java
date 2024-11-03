@@ -7,6 +7,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -30,11 +31,19 @@ public class Product {
 	private int stock;
 	@NotBlank
 	private String images;
-	@NotNull
-	private String category;
 	@ManyToMany
 	private List<Category> categories;
+	@OneToMany
+	private List<Rating> ratings; 
 	
+	public List<Rating> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(List<Rating> ratings) {
+		this.ratings = ratings;
+	}
+
 	public Product() {}
 
 	public Long getId() {
@@ -91,14 +100,6 @@ public class Product {
 
 	public void setImages(String images) {
 		this.images = images;
-	}
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
 	}
 
 	public List<Category> getCategories() {
