@@ -55,4 +55,11 @@ public class RatingServiceImpl implements IRatingService {
     public List<Rating> findByProduct(String product) {
         return ratingRepository.findByProduct(product);
     }
+
+	@Override
+	public Rating approve(Long id) {
+		Rating rating = ratingRepository.getById(id);
+		rating.setApproved(true);
+		return ratingRepository.save(rating);
+	}
 }

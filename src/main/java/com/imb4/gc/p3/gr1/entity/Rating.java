@@ -15,6 +15,7 @@ public class Rating {
     private String product;
     private String opinion;
     private int rating;
+    private boolean approved;
 
     public Rating() {}
 
@@ -57,4 +58,12 @@ public class Rating {
     public void setRating(int rating) {
         this.rating = rating;
     }
+
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
 }
