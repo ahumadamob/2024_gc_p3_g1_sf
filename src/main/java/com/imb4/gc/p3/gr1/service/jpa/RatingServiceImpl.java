@@ -26,18 +26,34 @@ public class RatingServiceImpl implements IRatingService {
 
     @Override
     public Rating save(Rating rating) {
+        if (rating.getRating() < 1 || rating.getRating() > 5) {
+            throw new IllegalArgumentException("El rating debe estar entre 1 y 5");
+        }
         return ratingRepository.save(rating);
     }
 
     @Override
     public void delete(Long id) {
-        ratingRepository.deleteById(id);
-
+        try {
+            ratingRepository.deleteById(id);
+        } catch (Exception e) {
+            throw new RuntimeException("Error al eliminar el rating con ID " + id, e);
+        }
     }
 
     @Override
     public boolean exists(Long id) {
-        return id==null ? false : ratingRepository.existsById(id);
+        return id != null && ratingRepository.existsById(id);
+    }
+
+    @Override
+    public List<Rating> findByUser(String user) {
+        return ratingRepository.findByUser(user);
+    }
+
+    @Override
+    public List<Rating> findByProduct(String product) {
+        return ratingRepository.findByProduct(product);
     }
 
 	@Override
