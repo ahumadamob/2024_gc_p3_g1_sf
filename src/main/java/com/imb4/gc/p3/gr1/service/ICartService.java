@@ -10,4 +10,5 @@ public interface ICartService {
     void delete(Long id);
     boolean exists(Long id);
     List<Cart> getByTotal(float start, float end);
+    Cart updateProductQuantity(Long cartId, Long productId, int quantity);
 }
