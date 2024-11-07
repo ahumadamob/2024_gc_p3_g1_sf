@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.imb4.gc.p3.gr1.entity.Cart;
+import com.imb4.gc.p3.gr1.entity.CartProduct;
 import com.imb4.gc.p3.gr1.exceptions.ConflictException;
 import com.imb4.gc.p3.gr1.exceptions.ErrorResponse;
 import com.imb4.gc.p3.gr1.exceptions.ResourceNotFoundException;
@@ -16,7 +17,7 @@ import com.imb4.gc.p3.gr1.util.ResponseUtil;
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/cart")
+@RequestMapping(path="/api/cart")
 public class CartController {
 
     @Autowired
@@ -79,6 +80,21 @@ public class CartController {
 		return carts.isEmpty()? ResponseUtil.notFound("No se encontraron carritos entre esos valores.") :
 			ResponseUtil.success(carts);
 	}
+    
+    @PutMapping("/{cartId}/products/{productId}")
+    public ResponseEntity<APIResponse<Cart>> updateProductQuantity(@PathVariable("cartId") Long cartId, @PathVariable("productId") Long productId, @Valid @RequestBody CartProduct cartProduct) {
+    	/*
+    	try {
+    		Cart cart = cartService.updateProductQuantity(cartId, productId, cartProduct.getQuantity());
+    		return ResponseUtil.success(cartService.save(cart));
+    	} catch (ResourceNotFoundException ex) {
+    		throw new ResourceNotFoundException(ex.getMessage());
+    	}
+    	*/
+    	
+    	Cart cart = cartService.updateProductQuantity(cartId, productId, cartProduct.getQuantity());
+    	return ResponseUtil.success(cartService.save(cart));
+    }
     
     @ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleResourceNotFoundException(ResourceNotFoundException ex) {

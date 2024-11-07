@@ -2,6 +2,8 @@ package com.imb4.gc.p3.gr1.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -36,6 +38,9 @@ public class Product {
 	private String category;
 	@ManyToMany
 	private List<Category> categories;
+	@OneToMany(mappedBy = "product")
+	@JsonIgnore
+    private List<CartProduct> carts;
 	@Positive
 	private int quantity;
 	@OneToMany
@@ -107,14 +112,6 @@ public class Product {
 		this.images = images;
 	}
 
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
 	public List<Category> getCategories() {
 		return categories;
 	}
@@ -123,11 +120,11 @@ public class Product {
 		this.categories = categories;
 	}
 
-	public int getQuantity() {
-		return quantity;
+	public List<CartProduct> getCarts() {
+		return carts;
 	}
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
 	}
 }

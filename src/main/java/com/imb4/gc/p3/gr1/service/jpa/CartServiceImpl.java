@@ -6,7 +6,10 @@ import com.imb4.gc.p3.gr1.service.ICartService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.imb4.gc.p3.gr1.entity.Cart;
+import com.imb4.gc.p3.gr1.entity.CartProduct;
 import com.imb4.gc.p3.gr1.entity.Product;
+import com.imb4.gc.p3.gr1.exceptions.ResourceNotFoundException;
+import com.imb4.gc.p3.gr1.repository.CartProductRepository;
 import com.imb4.gc.p3.gr1.exceptions.ConflictException;
 import com.imb4.gc.p3.gr1.repository.CartRepository;
 
@@ -15,6 +18,12 @@ public class CartServiceImpl implements ICartService {
 
     @Autowired
     private CartRepository cartRepository;
+    
+    @Autowired
+    private ProductRepository productRepository;
+    
+    @Autowired
+    private CartProductRepository cartProductRepository;
 
     @Override
     public List<Cart> getAll() {
@@ -84,5 +93,6 @@ public class CartServiceImpl implements ICartService {
 	public List<Cart> getByTotal(float start, float end) {
 		return cartRepository.findByTotalBetween(start, end);
 	}
+	
 	
 }
