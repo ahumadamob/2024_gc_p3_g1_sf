@@ -1,6 +1,6 @@
 package com.imb4.gc.p3.gr1.service;
 
-import com.imb4.gc.p3.gr1.entity.Rating;
+import  com.imb4.gc.p3.gr1.entity.Rating;
 
 import java.util.List;
 

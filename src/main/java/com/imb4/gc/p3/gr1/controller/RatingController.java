@@ -66,6 +66,11 @@ public class RatingController {
         Rating updatedRating = ratingService.save(rating);
         return ResponseUtil.success(updatedRating);
     }
+    
+    @PutMapping("{id}/approve")
+    public ResponseEntity<APIResponse<Rating>> approveRating(@PathVariable("id") Long id) {
+    	return ratingService.exists(id) ? ResponseUtil.success(ratingService.approve(id)) : ResponseUtil.badRequest("No existe el rating", id);
+    }
 
    @DeleteMapping("{id}")
     public ResponseEntity<APIResponse<Rating>> deleteRating(@PathVariable("id") Long id){

@@ -45,6 +45,15 @@ public class CartController {
 	    }
 	    return ResponseUtil.success(cartService.save(cart));
 	}
+    
+    @PostMapping("{id}/checkout")
+   	public ResponseEntity<APIResponse<Cart>> checkoutCart(@PathVariable("id") Long id){
+    	if (!cartService.exists(id)) {
+	        throw new ResourceNotFoundException("No se encontró el carrito con id " + id);
+		}
+	    Cart cart = cartService.getById(id);
+   	    return ResponseUtil.success(cartService.checkout(cart));
+   	}
 
     @PutMapping
 	public ResponseEntity<APIResponse<Cart>> updateCart(@Valid @RequestBody Cart cart){

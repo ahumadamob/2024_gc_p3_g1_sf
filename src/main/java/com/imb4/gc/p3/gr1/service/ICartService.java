@@ -7,6 +7,7 @@ public interface ICartService {
     List<Cart> getAll();
     Cart getById(Long id);
     Cart save(Cart cart);
+    Cart checkout (Cart cart);
     void delete(Long id);
     boolean exists(Long id);
     List<Cart> getByTotal(float start, float end);

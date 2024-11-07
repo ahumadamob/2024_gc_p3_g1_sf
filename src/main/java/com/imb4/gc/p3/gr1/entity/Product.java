@@ -7,7 +7,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -31,8 +30,12 @@ public class Product {
 	private int stock;
 	@NotBlank
 	private String images;
+	@NotNull
+	private String category;
 	@ManyToMany
 	private List<Category> categories;
+	@Positive
+	private int quantity;
 	@OneToMany
 	private List<Rating> ratings; 
 	
@@ -102,11 +105,27 @@ public class Product {
 		this.images = images;
 	}
 
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	public List<Category> getCategories() {
 		return categories;
 	}
 
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 }

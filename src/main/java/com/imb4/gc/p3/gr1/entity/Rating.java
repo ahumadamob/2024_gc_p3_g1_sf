@@ -4,10 +4,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.validation.constraints.NotEmpty;
-import jakarta.validation.constraints.Positive;
 
 @Entity
 public class Rating {
@@ -44,6 +40,22 @@ public class Rating {
         this.id = id;
     }
 
+    public String getUser() {
+        return user;
+    }
+
+    public void setUser(String user) {
+        this.user = user;
+    }
+
+    public String getProduct() {
+        return product;
+    }
+
+    public void setProduct(String product) {
+        this.product = product;
+    }
+
     public String getOpinion() {
         return opinion;
     }
@@ -55,9 +67,23 @@ public class Rating {
 	public int getNote() {
 		return note;
 	}
+    public int getRating() {
+        return rating;
+    }
 
 	public void setNote(int note) {
 		this.note = note;
 	}
 
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
+
+	public boolean isApproved() {
+		return approved;
+	}
+
+	public void setApproved(boolean approved) {
+		this.approved = approved;
+	}
 }
