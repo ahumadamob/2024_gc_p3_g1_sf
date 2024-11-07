@@ -13,6 +13,7 @@ import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
@@ -20,6 +21,9 @@ public class Product {
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
+
+	@ManyToMany
+	private List<Cart> carts;
 	@NotEmpty
 	private String name;
 	@NotNull
@@ -30,12 +34,26 @@ public class Product {
 	private int stock;
 	@NotBlank
 	private String images;
+	@NotNull
+	private String category;
 	@ManyToMany
 	private List<Category> categories;
 	@OneToMany(mappedBy = "product")
 	@JsonIgnore
     private List<CartProduct> carts;
+	@Positive
+	private int quantity;
+	@OneToMany
+	private List<Rating> ratings; 
 	
+	public List<Rating> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(List<Rating> ratings) {
+		this.ratings = ratings;
+	}
+
 	public Product() {}
 
 	public Long getId() {
@@ -44,6 +62,14 @@ public class Product {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public List<Cart> getCarts() {
+		return carts;
+	}
+
+	public void setCarts(List<Cart> carts) {
+		this.carts = carts;
 	}
 
 	public String getName() {
@@ -98,7 +124,7 @@ public class Product {
 		return carts;
 	}
 
-	public void setCarts(List<CartProduct> carts) {
-		this.carts = carts;
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
 	}
 }
