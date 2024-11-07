@@ -38,11 +38,7 @@ public interface IRatingService {
      * @return true si existe, false en caso contrario.
      */
     boolean exists(Long id);
-    
-    /**
-     * (Opcional) Busca ratings por el nombre del producto.
-     * @param product Nombre del producto.
-     * @return Lista de Ratings asociados al producto.
-     */
+    List<Rating> getRatingsByProductId(Long productId);
+    Double calculateAverageNoteByProductId(Long productId);
     List<Rating> findByProduct(String product);
 }

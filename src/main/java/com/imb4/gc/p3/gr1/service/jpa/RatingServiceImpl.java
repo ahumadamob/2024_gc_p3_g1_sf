@@ -61,5 +61,19 @@ public class RatingServiceImpl implements IRatingService {
 		Rating rating = ratingRepository.getById(id);
 		rating.setApproved(true);
 		return ratingRepository.save(rating);
+	public List<Rating> getRatingsByProductId(Long productId) {
+		return ratingRepository.findByProductId(productId);
+	}
+
+	@Override
+	public Double calculateAverageNoteByProductId(Long productId) {
+		List<Rating> ratings = getRatingsByProductId(productId);
+        if (ratings.isEmpty()) {
+            return 0.0;
+        }
+        return ratings.stream()
+                .mapToDouble(Rating::getNote)
+                .average()
+                .orElse(0.0);
 	}
 }

@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping(path = "/api/rating")
@@ -19,18 +21,16 @@ public class RatingController {
 
     // Obtener todos los ratings
     @GetMapping
-    public ResponseEntity<APIResponse<List<Rating>>> getAllRating() {
-        List<Rating> ratings = ratingService.getAll();
-        return ratings.isEmpty() ? ResponseUtil.notFound("No se encontraron ratings") : ResponseUtil.success(ratings);
+    public ResponseEntity<APIResponse<List<Rating>>> getAllRating(){
+        List<Rating> rating = ratingService.getAll();
+        return rating.isEmpty() ? ResponseUtil.notFound("No se encontraron ratings") : ResponseUtil.success(rating);
     }
 
     // Obtener rating por ID
     @GetMapping("{id}")
-    public ResponseEntity<APIResponse<Rating>> getRatingById(@PathVariable("id") Long id) {
-        return ratingService.exists(id) ? 
-                ResponseUtil.success(ratingService.getById(id)) : 
-                ResponseUtil.notFound("No se encontró el rating con el ID " + id);
-    }
+    public ResponseEntity<APIResponse<Rating>> getRatingById(@PathVariable("id")Long id){
+        return ratingService.exists(id) ? ResponseUtil.success(ratingService.getById(id)) : ResponseUtil.notFound("No se encontro el id ", id);
+    }  
 
     // Obtener ratings por usuario
     @GetMapping("/user/{user}")
@@ -72,14 +72,25 @@ public class RatingController {
     	return ratingService.exists(id) ? ResponseUtil.success(ratingService.approve(id)) : ResponseUtil.badRequest("No existe el rating", id);
     }
 
-    // Eliminar un rating por ID
-    @DeleteMapping("{id}")
-    public ResponseEntity<APIResponse<String>> deleteRating(@PathVariable("id") Long id) {
-        if (ratingService.exists(id)) {
-            ratingService.delete(id);
-            return ResponseUtil.success("El rating con el ID " + id + " ha sido eliminado con éxito.");
-        } else {
-            return ResponseUtil.notFound("No se encontró el rating con el ID " + id);
-        }
-    }
+   @DeleteMapping("{id}")
+    public ResponseEntity<APIResponse<Rating>> deleteRating(@PathVariable("id") Long id){
+       if (ratingService.exists(id)) {
+           ratingService.delete(id);
+           return ResponseUtil.badRequest("Eliminado el rating con el id: ", id);
+       }else{
+           return ResponseUtil.badRequest("No se encontro el rating con el id: ", id);
+       }
+   }
+   
+   @GetMapping("/product/{productId}")
+	public ResponseEntity<Map<String, Object>> getRatingsByProductId(@PathVariable Long productId) {
+	   
+       List<Rating> ratings = ratingService.getRatingsByProductId(productId);
+       Double average = ratingService.calculateAverageNoteByProductId(productId);
+       Map<String, Object> response = new HashMap<>();
+       response.put("ratings", ratings);
+       response.put("average", average);
+
+       return ResponseEntity.ok(response);
+   }
 }
