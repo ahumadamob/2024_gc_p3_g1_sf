@@ -46,6 +46,10 @@ public class Product {
 	@OneToMany
 	private List<Rating> ratings; 
 	
+	private boolean destacado;
+	
+	
+	
 	public List<Rating> getRatings() {
 		return ratings;
 	}
@@ -112,6 +116,14 @@ public class Product {
 		this.images = images;
 	}
 
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
 	public List<Category> getCategories() {
 		return categories;
 	}
@@ -120,11 +132,13 @@ public class Product {
 		this.categories = categories;
 	}
 
-	public List<CartProduct> getCarts() {
-		return carts;
+	public boolean isDestacado() {
+		return destacado;
 	}
 
-	public void setCategories(List<Category> categories) {
-		this.categories = categories;
+	public void setDestacado(boolean destacado) {
+		this.destacado = destacado;
 	}
+
+
 }
