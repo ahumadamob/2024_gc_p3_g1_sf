@@ -52,4 +52,13 @@ public class ProductServiceImpl implements IProductService{
 	public List<Product> precioMayorIgualA(float price) {
 		return repository.findByPriceGreaterThanEqual(price);
 	}
+
+	@Override
+    @Transactional
+    public void markAsFeatured(Long id, Boolean featured) {
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("No se encontró el producto con id " + id);
+        }
+        repository.updateFeatured(id, featured);
+    }
 }

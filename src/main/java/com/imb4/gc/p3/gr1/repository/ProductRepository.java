@@ -11,4 +11,7 @@ public interface ProductRepository extends JpaRepository<Product, Long>{//name p
 	public List<Product> findByNameLike(String name);
 	public List<Product> findByPriceLessThanEqual(float price);
 	public List<Product> findByPriceGreaterThanEqual(float price);
+	@Modifying
+    @Query("UPDATE Product p SET p.featured = :featured WHERE p.id = :id")
+    void updateFeatured(@Param("id") Long id, @Param("featured") Boolean featured);
 }

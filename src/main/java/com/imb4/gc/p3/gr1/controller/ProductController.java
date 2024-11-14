@@ -121,4 +121,17 @@ public class ProductController {
         ErrorResponse errorResponse = new ErrorResponse("Error interno del servidor", ex.getMessage());
         return new ResponseEntity<>(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+	@Autowired
+    private IProductService productService;
+
+    @PostMapping("{id}/feature")
+    public ResponseEntity<APIResponse<String>> markProductAsFeatured(@PathVariable("id") Long id,
+                                                                     @RequestBody Boolean featured) {
+        productService.markAsFeatured(id, featured);
+        String message = featured 
+            ? "El producto con id " + id + " fue marcado como destacado."
+            : "El producto con id " + id + " ya no es destacado.";
+        return ResponseUtil.success(message);
+    }
 }

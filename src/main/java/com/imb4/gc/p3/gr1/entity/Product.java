@@ -35,6 +35,17 @@ public class Product {
 	@ManyToMany
 	private List<Category> categories;
 	
+	@NotNull
+    private Boolean featured = false;
+
+    public Boolean getFeatured() {
+        return featured;
+    }
+
+    public void setFeatured(Boolean featured) {
+        this.featured = featured;
+    }
+
 	public Product() {}
 
 	public Long getId() {
