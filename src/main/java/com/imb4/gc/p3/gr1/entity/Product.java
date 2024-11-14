@@ -2,14 +2,18 @@ package com.imb4.gc.p3.gr1.entity;
 
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.OneToMany;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
@@ -34,7 +38,19 @@ public class Product {
 	private String category;
 	@ManyToMany
 	private List<Category> categories;
+	@OneToMany(mappedBy = "product")
+	@JsonIgnore
+    private List<CartProduct> carts;
+	@Positive
+	private int quantity;
+	@OneToMany
+	private List<Rating> ratings; 
 	
+	private boolean destacado;
+	 
+	
+	
+
 	@NotNull
     private Boolean featured = false;
 
@@ -45,6 +61,15 @@ public class Product {
     public void setFeatured(Boolean featured) {
         this.featured = featured;
     }
+
+	public List<Rating> getRatings() {
+		return ratings;
+	}
+
+	public void setRatings(List<Rating> ratings) {
+		this.ratings = ratings;
+	}
+
 
 	public Product() {}
 
@@ -119,4 +144,14 @@ public class Product {
 	public void setCategories(List<Category> categories) {
 		this.categories = categories;
 	}
+
+	public boolean isDestacado() {
+		return destacado;
+	}
+
+	public void setDestacado(boolean destacado) {
+		this.destacado = destacado;
+	}
+
+
 }

@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.imb4.gc.p3.gr1.entity.DestacarRequest;
 import com.imb4.gc.p3.gr1.entity.Product;
 import com.imb4.gc.p3.gr1.exceptions.ConflictException;
 import com.imb4.gc.p3.gr1.exceptions.ErrorResponse;
@@ -103,6 +104,19 @@ public class ProductController {
 			return new ResponseEntity<>(listado, HttpStatus.OK); 
 		}		
 	}
+	
+	@PutMapping("/{id}/destacar")
+	public ResponseEntity<String> marcarComoDestacado(@PathVariable Long id, @RequestBody DestacarRequest destacarRequest) {
+	    try {
+	        productService.marcarComoDestacado(id, destacarRequest.isDestacado());
+	        return ResponseEntity.ok("El estado de destacado del producto se ha actualizado correctamente.");
+	    } catch (ResourceNotFoundException e) {
+	        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Producto no encontrado");
+	    } catch (Exception e) {
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error al actualizar el producto");
+	    }
+	}
+	
 	
 	@ExceptionHandler(ResourceNotFoundException.class)
     public ResponseEntity<ErrorResponse> handleResourceNotFoundException(ResourceNotFoundException ex) {
