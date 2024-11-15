@@ -12,36 +12,33 @@ import jakarta.validation.constraints.Positive;
 @Entity
 @Table(name = "payment_method")
 public class PaymentMethod {
-	
+
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
-	
-	@NotEmpty(message= "El tipo no puede estar vacio")
+
+	@NotEmpty(message = "El tipo no puede estar vacio")
 	private String type;
-	
-	@NotEmpty(message= "El nombre no puede estar vacio")
+
+	@NotEmpty(message = "El nombre no puede estar vacio")
 	private String name;
-	
-	public String getName() {
-		return name;
-	}
 
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	@NotEmpty(message= "El data no puede estar vacio")
+	@NotEmpty(message = "El data no puede estar vacio")
 	private String data;
-	
-	@NotNull(message="El total no puede ser nulo")
-    @Positive(message="El total debe ser un valor positivo")
-	private Float total;
-	
-	public PaymentMethod(){}
 
-	
+	@NotNull(message = "El total no puede ser nulo")
+	@Positive(message = "El total debe ser un valor positivo")
+	private Float total;
+
+	@NotNull(message = "El límite diario no puede ser nulo")
+	@Positive(message = "El límite diario debe ser un valor positivo")
+	private Float dailyLimit;
+
+	@NotNull(message = "El límite por transacción no puede ser nulo")
+	@Positive(message = "El límite por transacción debe ser un valor positivo")
+	private Float transactionLimit;
+
+	// Getters y setters
 	public Long getId() {
 		return id;
 	}
@@ -56,6 +53,14 @@ public class PaymentMethod {
 
 	public void setType(String type) {
 		this.type = type;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getData() {
@@ -73,5 +78,20 @@ public class PaymentMethod {
 	public void setTotal(Float total) {
 		this.total = total;
 	}
-	
+
+	public Float getDailyLimit() {
+		return dailyLimit;
+	}
+
+	public void setDailyLimit(Float dailyLimit) {
+		this.dailyLimit = dailyLimit;
+	}
+
+	public Float getTransactionLimit() {
+		return transactionLimit;
+	}
+
+	public void setTransactionLimit(Float transactionLimit) {
+		this.transactionLimit = transactionLimit;
+	}
 }
