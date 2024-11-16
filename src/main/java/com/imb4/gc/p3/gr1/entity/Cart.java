@@ -1,15 +1,15 @@
 package com.imb4.gc.p3.gr1.entity;
 
 import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.PositiveOrZero;
 
 @Entity
 public class Cart {
@@ -18,24 +18,32 @@ public class Cart {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
     
-    private Float total;
+    @PositiveOrZero
+    @NotNull
+    private float total;
 
     @ManyToOne
     private User user;
-
-    @ManyToMany
-    @JoinTable(
-        name = "cart_product",
-        joinColumns = @JoinColumn(name = "cart_id"),
-        inverseJoinColumns = @JoinColumn(name = "product_id")
-    )
-    private List<Product> products;
+    
+    @ManyToOne
+    private PaymentMethod paymentMethod;
 
     @ManyToOne
     @JoinColumn(name = "purchase_order_id")
     private PurchaseOrder purchaseOrder;
+    
+    @OneToMany(mappedBy = "cart")
+    private List<CartProduct> products;
 
-    public Cart() {}
+	public Cart() {}
+	
+	public List<CartProduct> getProducts() {
+		return products;
+	}
+
+	public void setProducts(List<CartProduct> products) {
+		this.products = products;
+	}
 
     public Long getId() {
         return id;
@@ -43,14 +51,6 @@ public class Cart {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public List<Product> getProducts() {
-        return products;
-    }
-
-    public void setProducts(List<Product> products) {
-        this.products = products;
     }
 
     public User getUser() {
@@ -76,4 +76,13 @@ public class Cart {
     public void setPurchaseOrder(PurchaseOrder purchaseOrder) {
         this.purchaseOrder = purchaseOrder;
     }
+
+	public PaymentMethod getPaymentMethod() {
+		return paymentMethod;
+	}
+
+	public void setPaymentMethod(PaymentMethod paymentMethod) {
+		this.paymentMethod = paymentMethod;
+	}
+    
 }

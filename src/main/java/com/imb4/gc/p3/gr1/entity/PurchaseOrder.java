@@ -8,15 +8,29 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.Size;
 
 @Entity
 public class PurchaseOrder {
     @Id
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Long id;
+    
+    @NotEmpty(message = "La fecha no puede ser nula ni estar vacía")
     private String date;
+    
+    @NotEmpty(message = "El estado no puede ser nulo ni estar vacío")
     private String state;
+    
+    @NotEmpty(message = "La dirección no puede ser nula ni estar vacía")
+    @Size(min=3, max=70, message="La dirección debe tener entre 3 y 70 caracteres")
     private String address;
+    
+    @NotNull(message="El total no puede ser nulo")
+    @Positive(message="El total debe ser un valor positivo")
     private double total;
 
     @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL)

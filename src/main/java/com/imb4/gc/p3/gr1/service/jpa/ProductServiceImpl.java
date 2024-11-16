@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 import com.imb4.gc.p3.gr1.entity.Product;
 import com.imb4.gc.p3.gr1.repository.ProductRepository;
 import com.imb4.gc.p3.gr1.service.IProductService;
+
+import jakarta.persistence.EntityNotFoundException;
 @Service
 public class ProductServiceImpl implements IProductService{
 	@Autowired
@@ -37,4 +39,27 @@ public class ProductServiceImpl implements IProductService{
 	public boolean exists(Long id) {
 		return repository.existsById(id) ;
 	}
+
+	@Override
+	public List<Product> encontrarPorNombre(String name) {
+		return repository.findByNameLike(name);
+	}
+
+	@Override
+	public List<Product> precioMenorIgualA(float price) {
+		return repository.findByPriceLessThanEqual(price);
+	}
+
+	@Override
+	public List<Product> precioMayorIgualA(float price) {
+		return repository.findByPriceGreaterThanEqual(price);
+	}
+	@Override
+    public void marcarComoDestacado(Long id, boolean destacado) {
+        Product product = repository.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("Producto no encontrado"));
+        
+        product.setDestacado(destacado);
+        repository.save(product);
+    }
 }
