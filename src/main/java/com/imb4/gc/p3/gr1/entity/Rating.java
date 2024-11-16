@@ -10,10 +10,7 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Positive;
 
 @Entity
-public class Rating {
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    private Long id;
+public class Rating extends BaseEntity{
 
     @ManyToOne
     @JoinColumn(name = "product_id")
@@ -25,37 +22,45 @@ public class Rating {
     @Positive
     private int note;
 
-	public Long getId() {
-		return id;
-	}
+    public Rating() {}
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    public Long getId() {
+        return id;
+    }
 
-	public Product getProduct() {
-		return product;
-	}
+    public void setId(Long id) {
+        this.id = id;
+    }
 
-	public void setProduct(Product product) {
-		this.product = product;
-	}
+    public String getUser() {
+        return user;
+    }
 
-	public String getOpinion() {
-		return opinion;
-	}
+    public void setUser(String user) {
+        this.user = user;
+    }
 
-	public void setOpinion(String opinion) {
-		this.opinion = opinion;
-	}
+    public String getProduct() {
+        return product;
+    }
 
-	public int getNote() {
-		return note;
-	}
+    public void setProduct(String product) {
+        this.product = product;
+    }
 
-	public void setNote(int note) {
-		this.note = note;
-	}
-    
+    public String getOpinion() {
+        return opinion;
+    }
 
+    public void setOpinion(String opinion) {
+        this.opinion = opinion;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
+    }
 }

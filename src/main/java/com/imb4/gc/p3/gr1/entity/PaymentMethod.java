@@ -1,7 +1,5 @@
 package com.imb4.gc.p3.gr1.entity;
 
-import java.util.List;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -14,14 +12,7 @@ import jakarta.validation.constraints.Positive;
 
 @Entity
 @Table(name = "payment_method")
-public class PaymentMethod {
-	
-	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
-	
-	@OneToMany
-    private List<Cart> carts;
+public class PaymentMethod extends BaseEntity{
 	
 	@NotEmpty(message= "El tipo no puede estar vacio")
 	private String type;
@@ -89,20 +80,5 @@ public class PaymentMethod {
 	public void setTotal(Float total) {
 		this.total = total;
 	}
-
-	public Float getDailyLimit() {
-		return dailyLimit;
-	}
-
-	public void setDailyLimit(Float dailyLimit) {
-		this.dailyLimit = dailyLimit;
-	}
-
-	public Float getTransactionLimit() {
-		return transactionLimit;
-	}
-
-	public void setTransactionLimit(Float transactionLimit) {
-		this.transactionLimit = transactionLimit;
-	}
+	
 }
