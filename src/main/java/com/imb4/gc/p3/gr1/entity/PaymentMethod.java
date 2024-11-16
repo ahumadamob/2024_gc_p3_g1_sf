@@ -33,6 +33,8 @@ public class PaymentMethod {
 		return name;
 	}
 
+	@NotEmpty(message = "El data no puede estar vacio")
+	private String data;
 
 	public void setName(String name) {
 		this.name = name;
@@ -64,6 +66,14 @@ public class PaymentMethod {
 		this.type = type;
 	}
 
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
 	public String getData() {
 		return data;
 	}
@@ -79,5 +89,20 @@ public class PaymentMethod {
 	public void setTotal(Float total) {
 		this.total = total;
 	}
-	
+
+	public Float getDailyLimit() {
+		return dailyLimit;
+	}
+
+	public void setDailyLimit(Float dailyLimit) {
+		this.dailyLimit = dailyLimit;
+	}
+
+	public Float getTransactionLimit() {
+		return transactionLimit;
+	}
+
+	public void setTransactionLimit(Float transactionLimit) {
+		this.transactionLimit = transactionLimit;
+	}
 }
