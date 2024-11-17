@@ -34,7 +34,7 @@ public class Product extends BaseEntity{
 	private List<Category> categories;
 	@OneToMany(mappedBy = "product")
 	@JsonIgnore
-    private List<CartProduct> carts;
+    private List<CartProduct> cartsProduct;
 	@Positive
 	private int quantity;
 	@OneToMany
@@ -124,6 +124,22 @@ public class Product extends BaseEntity{
 
 	public void setDestacado(boolean destacado) {
 		this.destacado = destacado;
+	}
+
+	public List<CartProduct> getCartsProduct() {
+		return cartsProduct;
+	}
+
+	public void setCartsProduct(List<CartProduct> cartsProduct) {
+		this.cartsProduct = cartsProduct;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
 	}
 
 

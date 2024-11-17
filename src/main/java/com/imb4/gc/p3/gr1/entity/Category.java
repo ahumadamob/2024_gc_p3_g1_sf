@@ -11,7 +11,7 @@ import jakarta.validation.constraints.NotBlank;
 public class Category extends BaseEntity{
   
   @NotBlank(message = "El nombre de la categoría no puede estar en blanco")
-	private String nombre_category;
+	private String nombreCategory;
 
 	@NotBlank(message = "La descripción de la categoría no puede estar en blanco")
 	private String descripcion;
@@ -25,10 +25,10 @@ public class Category extends BaseEntity{
 	private List<Product> products;
 	
 	public String getNombre_category() {
-		return nombre_category;
+		return nombreCategory;
 	}
 	public void setNombre_category(String nombre_category) {
-		this.nombre_category = nombre_category;
+		this.nombreCategory = nombre_category;
 	}
 	public String getDescripcion() {
 		return descripcion;

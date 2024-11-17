@@ -75,4 +75,8 @@ public class ResponseUtil {
         return messages;
 
     }
+
+	public static ResponseEntity<APIResponse<String>> error(String string) {
+		return null;
+	}
 }
