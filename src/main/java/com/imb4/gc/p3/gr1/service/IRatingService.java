@@ -41,4 +41,8 @@ public interface IRatingService {
     List<Rating> getRatingsByProductId(Long productId);
     Double calculateAverageNoteByProductId(Long productId);
     List<Rating> findByProduct(String product);
+
+	List<Rating> findByUser(String user);
+
+	Rating approve(Long id);
 }

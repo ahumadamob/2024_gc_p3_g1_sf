@@ -3,9 +3,6 @@ package com.imb4.gc.p3.gr1.entity;
 import java.util.List;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
@@ -35,24 +32,10 @@ public class Cart extends BaseEntity{
     @JoinColumn(name = "purchase_order_id")
     private PurchaseOrder purchaseOrder;
 
+	private PaymentMethod paymentMethod;
+
 	public Cart() {}
 	
-	public List<CartProduct> getProducts() {
-		return products;
-	}
-
-	public void setProducts(List<CartProduct> products) {
-		this.products = products;
-	}
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public List<Product> getProducts() {
         return products;
     }
