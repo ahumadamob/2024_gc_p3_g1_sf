@@ -20,6 +20,5 @@ public interface IProductService {
     public List<Product> precioMenorIgualA(float price);
     
     public List<Product> precioMayorIgualA(float price);
-    
-    void marcarComoDestacado(Long id, boolean destacado);
+    void markAsFeatured(Long id, Boolean featured);
 }

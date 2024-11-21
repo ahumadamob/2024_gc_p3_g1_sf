@@ -54,12 +54,14 @@ public class ProductServiceImpl implements IProductService{
 	public List<Product> precioMayorIgualA(float price) {
 		return repository.findByPriceGreaterThanEqual(price);
 	}
+
 	@Override
-    public void marcarComoDestacado(Long id, boolean destacado) {
-        Product product = repository.findById(id)
-            .orElseThrow(() -> new EntityNotFoundException("Producto no encontrado"));
-        
-        product.setDestacado(destacado);
-        repository.save(product);
+    @Transactional
+    public void markAsFeatured(Long id, Boolean featured) {
+        if (!repository.existsById(id)) {
+            throw new ResourceNotFoundException("No se encontró el producto con id " + id);
+        }
+        repository.updateFeatured(id, featured);
+
     }
 }

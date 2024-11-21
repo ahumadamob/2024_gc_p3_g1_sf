@@ -41,9 +41,21 @@ public class Product extends BaseEntity{
 	private List<Rating> ratings; 
 	
 	private boolean destacado;
+	 
 	
 	
-	
+
+	@NotNull
+    private Boolean featured = false;
+
+    public Boolean getFeatured() {
+        return featured;
+    }
+
+    public void setFeatured(Boolean featured) {
+        this.featured = featured;
+    }
+
 	public List<Rating> getRatings() {
 		return ratings;
 	}
@@ -51,6 +63,7 @@ public class Product extends BaseEntity{
 	public void setRatings(List<Rating> ratings) {
 		this.ratings = ratings;
 	}
+
 
 	public Product() {}
 
