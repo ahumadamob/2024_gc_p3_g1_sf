@@ -1,47 +1,47 @@
 package com.imb4.gc.p3.gr1.entity;
 
-import java.util.List;
-
-import jakarta.persistence.Entity;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
+import java.util.List;
 
 @Entity
-public class Cart extends BaseEntity{
-    
+public class Cart extends BaseEntity {
+
     @PositiveOrZero
     @NotNull
-    private float total;
+    private float total; // Total del carrito (calculado automáticamente).
 
     @ManyToOne
-    private User user;
+    @NotNull
+    private User user; // Usuario asociado al carrito.
 
     @ManyToMany
     @JoinTable(
-        name = "cart_product",
+        name = "cart_product", // Tabla intermedia para la relación muchos a muchos.
         joinColumns = @JoinColumn(name = "cart_id"),
         inverseJoinColumns = @JoinColumn(name = "product_id")
     )
-    private List<Product> products;
+    @NotNull(message = "El carrito debe tener al menos un producto.")
+    private List<Product> products; // Lista de productos.
 
     @ManyToOne
     @JoinColumn(name = "purchase_order_id")
-    private PurchaseOrder purchaseOrder;
+    private PurchaseOrder purchaseOrder; // Relación con una orden de compra (opcional, solo al confirmar).
 
-	private PaymentMethod paymentMethod;
+    @ManyToOne
+    private PaymentMethod paymentMethod; // Método de pago (opcional al crear, obligatorio al confirmar).
 
-	public Cart() {}
-	
-    public List<Product> getProducts() {
-        return products;
+    @NotNull
+    private Boolean active = true; // Indica si el carrito está activo (por defecto, verdadero).
+
+    // Getters y setters.
+    public float getTotal() {
+        return total;
     }
 
-    public void setProducts(List<Product> products) {
-        this.products = products;
+    public void setTotal(float total) {
+        this.total = total;
     }
 
     public User getUser() {
@@ -52,12 +52,12 @@ public class Cart extends BaseEntity{
         this.user = user;
     }
 
-    public float getTotal() {
-        return total;
+    public List<Product> getProducts() {
+        return products;
     }
 
-    public void setTotal(float total) {
-        this.total = total;
+    public void setProducts(List<Product> products) {
+        this.products = products;
     }
 
     public PurchaseOrder getPurchaseOrder() {
@@ -68,12 +68,19 @@ public class Cart extends BaseEntity{
         this.purchaseOrder = purchaseOrder;
     }
 
-	public PaymentMethod getPaymentMethod() {
-		return paymentMethod;
-	}
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
+    }
 
-	public void setPaymentMethod(PaymentMethod paymentMethod) {
-		this.paymentMethod = paymentMethod;
-	}
-    
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
+    }
+
+    public Boolean getActive() {
+        return active;
+    }
+
+    public void setActive(Boolean active) {
+        this.active = active;
+    }
 }
