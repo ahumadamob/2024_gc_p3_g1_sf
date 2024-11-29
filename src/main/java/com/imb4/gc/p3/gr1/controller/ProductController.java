@@ -57,6 +57,27 @@ public class ProductController {
 		return ResponseUtil.success(productService.save(product));
 	}
 	
+	@PostMapping("/nuevo")
+	public ResponseEntity<APIResponse<Product>> saveProductName(@Valid @RequestBody Product product) {
+	    
+	    if (productService.exists(product.getId())) {
+	        throw new ConflictException("Ya existe un producto con id " + product.getId());
+	    }
+
+	    // Validar si ya existe un producto con el mismo nombre
+	    if (productService.existsByName(product.getName())) {
+	        throw new ConflictException("Ya existe un producto con el nombre " + product.getName());
+	    }
+
+	    // Validar stock para productos destacados
+	    if (product.isDestacado() && product.getStock() <= 0) {
+	        throw new ConflictException("El stock debe ser mayor a 0 para productos destacados.");
+	    }
+
+	    return ResponseUtil.success(productService.save(product));
+	}
+
+	
 	@PutMapping
 	public ResponseEntity<APIResponse<Product>> updateProduct(@Valid @RequestBody Product product){
 		if ( !productService.exists( product.getId() ) ) {
