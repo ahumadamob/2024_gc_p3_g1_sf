@@ -1,5 +1,7 @@
 package com.imb4.gc.p3.gr1.entity;
 
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -29,15 +31,32 @@ public class PurchaseOrder extends BaseEntity{
 
     @OneToMany(mappedBy = "purchaseOrder", cascade = CascadeType.ALL)
     private List<Cart> carts;
+    
+    @NotEmpty(message = "El método de envío no puede ser nulo ni vacío")
+    private String shippingMethod;
 
-    public PurchaseOrder() {}
+    private String estimatedDeliveryDate;
+
+	public String getEstimatedDeliveryDate() {
+		return estimatedDeliveryDate;
+	}
+
+	public String getShippingMethod() {
+		return shippingMethod;
+	}
+
+	public void setShippingMethod(String shippingMethod) {
+		this.shippingMethod = shippingMethod;
+	}
+
+	public void setEstimatedDeliveryDate(String estimatedDeliveryDate) {
+		this.estimatedDeliveryDate = estimatedDeliveryDate;
+	}
+
+	public PurchaseOrder() {}
 
     public String getDate() {
         return date;
-    }
-
-    public void setDate(String date) {
-        this.date = date;
     }
 
     public String getState() {
@@ -71,5 +90,4 @@ public class PurchaseOrder extends BaseEntity{
     public void setCarts(List<Cart> carts) {
         this.carts = carts;
     }
-
 }

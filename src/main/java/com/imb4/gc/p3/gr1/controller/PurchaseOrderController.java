@@ -52,6 +52,13 @@ public class PurchaseOrderController {
 			ResponseUtil.success(purchaseOrders);
 	}
 	
+	@GetMapping("/mayores")
+	public ResponseEntity<APIResponse<List<PurchaseOrder>>> getPurchaseOrdersGreaterThan(@RequestParam double total){
+		List<PurchaseOrder> purchaseOrders = purchaseOrderService.findByTotalGreaterThan(total);
+		return purchaseOrders.isEmpty()? ResponseUtil.notFound("No se encontraron órdenes de compra con total mayor a " + total) :
+			ResponseUtil.success(purchaseOrders);
+	}
+	
 	@PostMapping
 	public ResponseEntity<APIResponse<PurchaseOrder>> savePurchaseOrder(@Valid @RequestBody PurchaseOrder purchaseOrder){
 		if (purchaseOrderService.exists(purchaseOrder.getId())) {
@@ -76,6 +83,27 @@ public class PurchaseOrderController {
 		}else {
 			throw new ResourceNotFoundException("No existe una órden de compra con id " + id);
 		}
+	}
+	
+	@PostMapping("/nueva")
+	public ResponseEntity<APIResponse<PurchaseOrder>> createPurchaseOrder(@Valid @RequestBody PurchaseOrder purchaseOrder) {
+	    if (purchaseOrderService.exists(purchaseOrder.getId())) {
+	        throw new ConflictException("La orden de compra ya existe");
+	    }
+	    
+	    if (purchaseOrderService.existsByState(purchaseOrder.getState())) {
+	        throw new ConflictException("Ya existe  una órden de compra con ese estado");
+	    }
+	    
+	    if (!purchaseOrder.getShippingMethod().equals("standard") && !purchaseOrder.getShippingMethod().equals("express")) {
+	        throw new IllegalArgumentException("Método de envío inválido: debe ser 'standard' o 'express'");
+	    }
+
+	    //purchaseOrder.setShippingMethod(purchaseOrder.getShippingMethod());
+	    purchaseOrderService.setearShippingMethod(purchaseOrder);
+
+	    PurchaseOrder savedOrder = purchaseOrderService.save(purchaseOrder);
+	    return ResponseUtil.success(savedOrder);
 	}
 	
 	@ExceptionHandler(ResourceNotFoundException.class)
