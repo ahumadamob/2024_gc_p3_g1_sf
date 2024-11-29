@@ -11,4 +11,7 @@ public interface IPurchaseOrderService {
     void delete(Long id);
     boolean exists(Long id);
     List<PurchaseOrder> getByState(String state);
+    boolean existsByState(String state);
+    void setearShippingMethod(PurchaseOrder purchaseOrder);
+    List<PurchaseOrder> findByTotalGreaterThan(double total);
 }
