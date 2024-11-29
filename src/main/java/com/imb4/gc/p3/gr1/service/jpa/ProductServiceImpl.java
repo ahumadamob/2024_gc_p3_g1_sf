@@ -62,4 +62,9 @@ public class ProductServiceImpl implements IProductService{
         product.setDestacado(destacado);
         repository.save(product);
     }
+
+	@Override
+	public boolean existsByName(String name) {
+		return repository.existsByName(name);
+	}
 }

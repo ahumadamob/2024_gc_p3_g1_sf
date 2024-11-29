@@ -15,6 +15,8 @@ public interface IProductService {
 
     boolean exists(Long id);
     
+    boolean existsByName(String name);
+    
     public List<Product> encontrarPorNombre(String name);
     
     public List<Product> precioMenorIgualA(float price);
