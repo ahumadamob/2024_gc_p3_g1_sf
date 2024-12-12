@@ -74,7 +74,7 @@ public class CategoryController {
 		if (service.contarProductos(category) > 0) {
 			return ResponseUtil.badRequest("Error de validación. Esta categoría ya tiene productos y no puede ser creada");
 		}
-		if (category.getFecha_creacion() < fecha) {
+		if (category.getFecha_creacion().before(fecha)) {
 			return ResponseUtil.badRequest("Error de validación. Esta categoría no puede existir antes del 2024");
 		}
 		
