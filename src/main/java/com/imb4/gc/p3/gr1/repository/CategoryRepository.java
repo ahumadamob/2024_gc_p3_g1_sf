@@ -16,4 +16,5 @@ public interface CategoryRepository extends JpaRepository<Category, Long> {
 	List<Category> findByFechaCreacionBetween(Date inicio, Date fin);
 	List<Category> findByFechaActualizacionEquals(Date fecha);
 	List<Category> findByFechaActualizacionBetween(Date inicio, Date fin);
+	int countByProducts(Category category);
 }
