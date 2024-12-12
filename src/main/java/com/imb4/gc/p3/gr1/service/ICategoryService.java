@@ -27,4 +27,6 @@ public interface ICategoryService {
     List<Category> encontarPorFechaActualizacion(Date fecha);
     
     List<Category> encontarPorFechaActualizacionIntervalo(Date inicio, Date fin);
+    
+    int contarProductos(Category category);
 }

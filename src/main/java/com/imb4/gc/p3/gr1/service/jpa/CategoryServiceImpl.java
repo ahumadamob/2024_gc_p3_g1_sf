@@ -69,5 +69,10 @@ public class CategoryServiceImpl implements ICategoryService {
 	public List<Category> encontarPorFechaActualizacionIntervalo(Date inicio, Date fin) {
 		return repo.findByFechaActualizacionBetween(inicio, fin);
 	}
+
+	@Override
+	public int contarProductos(Category category) {
+		return repo.countByProducts(category);
+	}
 	
 }
